@@ -1,10 +1,7 @@
 # Decap CMS Configuration
 backend:
-  name: github
-  repo: jolyssa/jolyssa-space
+  name: git-gateway
   branch: main
-  base_url: https://api.netlify.com # GitHub OAuth proxy
-  auth_endpoint: auth
 
 # Local development
 local_backend: true
