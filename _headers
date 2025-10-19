@@ -1,0 +1,16 @@
+# Security headers for Cloudflare Pages
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Admin route headers (for CMS)
+/admin/*
+  X-Frame-Options: SAMEORIGIN
+
+# API route headers  
+/functions/*
+  Access-Control-Allow-Origin: https://jolyssa-space.pages.dev
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Authorization

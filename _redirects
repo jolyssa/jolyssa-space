@@ -1,0 +1,13 @@
+# Redirects for Cloudflare Pages
+
+# CMS admin authentication
+/auth /functions/auth 200
+
+# SPA-style routing for admin (if needed)
+/admin/* /admin/index.html 200
+
+# RSS feed
+/feed.xml /rss.xml 301
+
+# Fallback for 404s
+/* /404.html 404
