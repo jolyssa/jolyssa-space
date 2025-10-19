@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('movement');
+// synthesize titles and dates for movement
+const normalized = all.map(item => {
+  let d = new Date();
+  try { d = new Date(`${item.data.month} 1, ${item.data.year}`); } catch {}
+  return { ...item, data: { ...item.data, date: d, title: `${item.data.month} ${item.data.year}`, excerpt: item.data.notes } };
+}).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout 
+  title="Movement" 
+  description="Monthly movement tracking and reflections."
+>
+  <div class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-16">
+      <h1 class="font-serif text-5xl font-bold mb-4">Movement</h1>
+      <p class="text-xl text-text-secondary leading-relaxed">
+        Monthly exercise tracking, reflections, and progress.
+      </p>
+    </header>
+
+    <section>
+      <h2 class="font-serif text-2xl font-bold mb-6">All Months</h2>
+      <div class="space-y-8">
+        {normalized.map(item => (
+          <Card item={item} collection="movement" />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

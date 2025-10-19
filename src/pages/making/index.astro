@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('making');
+const sorted = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featured = sorted.filter(item => item.data.featured);
+---
+
+<Layout 
+  title="Making" 
+  description="DIY projects, woodworking, clay, and furniture restoration."
+>
+  <div class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-16">
+      <h1 class="font-serif text-5xl font-bold mb-4">Making</h1>
+      <p class="text-xl text-text-secondary leading-relaxed">
+        DIY projects, woodworking, clay, furniture restoration, and other hands-on explorations.
+      </p>
+    </header>
+
+    {featured.length > 0 && (
+      <section class="mb-16">
+        <h2 class="font-serif text-2xl font-bold mb-6">Featured</h2>
+        <div class="space-y-8">
+          {featured.map(item => (
+            <Card item={item} collection="making" />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section>
+      <h2 class="font-serif text-2xl font-bold mb-6">All Projects</h2>
+      <div class="space-y-8">
+        {sorted.map(item => (
+          <Card item={item} collection="making" />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

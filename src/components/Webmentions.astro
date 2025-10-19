@@ -1,0 +1,86 @@
+---
+const { url } = Astro.props;
+const webmentionsUrl = `https://webmention.io/api/mentions.jf2?target=${url}&per-page=100`;
+
+let mentions = [];
+
+try {
+  const response = await fetch(webmentionsUrl);
+  const data = await response.json();
+  mentions = data.children || [];
+} catch (error) {
+  console.error('Error fetching webmentions:', error);
+}
+
+// Group by type
+const likes = mentions.filter(m => m['wm-property'] === 'like-of');
+const reposts = mentions.filter(m => m['wm-property'] === 'repost-of');
+const replies = mentions.filter(m => m['wm-property'] === 'in-reply-to');
+---
+
+{mentions.length > 0 && (
+  <section class="webmentions section-spacing">
+    <h2 class="font-serif text-3xl mb-8">Responses</h2>
+    
+    {(likes.length > 0 || reposts.length > 0) && (
+      <div class="flex gap-4 mb-8">
+        {likes.length > 0 && (
+          <span class="text-text-secondary">
+            ❤️ {likes.length} {likes.length === 1 ? 'like' : 'likes'}
+          </span>
+        )}
+        {reposts.length > 0 && (
+          <span class="text-text-secondary">
+            🔄 {reposts.length} {reposts.length === 1 ? 'repost' : 'reposts'}
+          </span>
+        )}
+      </div>
+    )}
+    
+    {replies.length > 0 && (
+      <div class="space-y-6">
+        {replies.map(reply => (
+          <div class="card">
+            <div class="flex items-start gap-4">
+              {reply.author?.photo && (
+                <img 
+                  src={reply.author.photo} 
+                  alt={reply.author.name}
+                  class="w-12 h-12 rounded-full"
+                />
+              )}
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <strong>{reply.author?.name || 'Anonymous'}</strong>
+                  <span class="text-text-secondary text-sm">
+                    {new Date(reply.published).toLocaleDateString()}
+                  </span>
+                </div>
+                <div class="prose prose-sm" set:html={reply.content?.html || reply.content?.text} />
+                {reply.url && (
+                  <a 
+                    href={reply.url}
+                    class="text-accent text-sm mt-2 inline-block"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View original →
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    
+    <div class="mt-8 p-6 bg-surface rounded-lg">
+      <p class="text-text-secondary">
+        Join the conversation on 
+        <a href={`https://twitter.com/intent/tweet?url=${url}`} class="text-accent">Twitter</a>,
+        <a href={`https://bsky.app/intent/compose?text=${url}`} class="text-accent">Bluesky</a>, or
+        <a href={`https://mastodon.social/share?text=${url}`} class="text-accent">Mastodon</a>
+      </p>
+    </div>
+  </section>
+)}

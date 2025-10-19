@@ -1,0 +1,114 @@
+---
+const isHomepage = Astro.url.pathname === '/';
+const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/yourname';
+---
+
+{!isHomepage && (
+  <>
+    <button 
+      id="office-hours-btn"
+      class="fixed bottom-6 right-6 z-50 
+             bg-accent hover:bg-accent-light
+             text-white font-semibold
+             px-4 py-3 rounded-full
+             shadow-lg hover:shadow-xl
+             transition-all duration-200
+             flex items-center gap-2"
+      style="animation: slideUpFade 400ms ease-out 400ms both;"
+    >
+      💬 Let's talk
+    </button>
+
+    <div 
+      id="office-hours-modal" 
+      class="fixed inset-0 z-50 hidden
+             bg-black/80 backdrop-blur-sm
+             flex items-center justify-center p-4"
+    >
+      <div 
+        class="bg-surface rounded-xl max-w-md w-full p-8 relative"
+        style="animation: slideUpFade 300ms ease-out;"
+      >
+        <button 
+          id="close-modal"
+          class="absolute top-4 right-4 text-text-secondary hover:text-text-primary transition-colors"
+          aria-label="Close"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <h2 class="font-serif text-3xl mb-4">
+          Let's have a conversation
+        </h2>
+        
+        <p class="text-text-secondary mb-4 leading-relaxed">
+          Every Friday, 2-3pm EST, I'm around for 15-minute chats about whatever.
+        </p>
+        
+        <p class="text-text-secondary mb-6 leading-relaxed">
+          Music, code, creative blocks, life stuff, furniture restoration—whatever's on your mind. No agenda.
+        </p>
+        
+        <a 
+          href={calendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-center bg-accent hover:bg-accent-light 
+                 text-white font-semibold py-3 px-6 rounded-lg
+                 transition-colors duration-200"
+        >
+          Pick a time →
+        </a>
+        
+        <p class="text-text-secondary text-sm mt-6 text-center">
+          Not available Fridays? 
+          <a href="mailto:you@email.com" class="text-accent hover:text-accent-light">
+            Email me instead
+          </a>
+        </p>
+      </div>
+    </div>
+  </>
+)}
+
+<script>
+  const btn = document.getElementById('office-hours-btn');
+  const modal = document.getElementById('office-hours-modal');
+  const closeBtn = document.getElementById('close-modal');
+  
+  // Open modal
+  btn?.addEventListener('click', () => {
+    modal?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  // Close modal on backdrop click
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  });
+  
+  // Close modal on X button
+  closeBtn?.addEventListener('click', () => {
+    modal?.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+      modal?.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
+
+<style>
+  #office-hours-btn:hover {
+    animation: gentleBounce 500ms ease-in-out;
+  }
+</style>

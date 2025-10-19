@@ -1,0 +1,115 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #2D2D2D;
+  --color-background-light: #FAFAFA;
+  --color-surface: #3A3A3A;
+  --color-surface-light: #FFFFFF;
+  --color-text-primary: #E5E5E5;
+  --color-text-primary-light: #2D2D2D;
+  --color-text-secondary: #A6A6A6;
+  --color-text-secondary-light: #6B6B6B;
+  --color-accent: #4791B1;
+  --color-accent-light: #5BB3D9;
+  
+  --font-family-serif: 'Libre Baskerville', serif;
+  --font-family-sans: 'General Sans', 'Work Sans', sans-serif;
+  --font-family-mono: 'Geist Mono', monospace;
+}
+
+@layer base {
+  /* Font faces if self-hosting */
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-background text-text-primary;
+    @apply dark:bg-background dark:text-text-primary;
+    @apply transition-colors duration-300;
+  }
+  
+  /* Light mode overrides */
+  html:not(.dark) body {
+    @apply bg-background-light text-text-primary-light;
+  }
+}
+
+@layer components {
+  /* Reusable component styles */
+  .card {
+    @apply bg-surface rounded-xl p-8 shadow-md;
+    @apply hover:shadow-lg hover:scale-[1.02];
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  html:not(.dark) .card {
+    @apply bg-surface-light;
+  }
+  
+  .btn-primary {
+    @apply bg-accent text-white font-semibold;
+    @apply px-6 py-3 rounded-md;
+    @apply hover:bg-accent-light;
+    @apply transition-colors duration-200;
+  }
+  
+  .section-spacing {
+    @apply my-24; /* 96px */
+  }
+  
+  .prose-custom {
+    @apply prose prose-lg;
+    @apply dark:prose-invert;
+    @apply prose-headings:font-serif;
+    @apply prose-a:text-accent prose-a:no-underline;
+    @apply max-w-2xl mx-auto;
+  }
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

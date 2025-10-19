@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('consuming');
+const sorted = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout 
+  title="Consuming" 
+  description="Movies, books, games, food."
+>
+  <div class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-16">
+      <h1 class="font-serif text-5xl font-bold mb-4">Consuming</h1>
+      <p class="text-xl text-text-secondary leading-relaxed">
+        What I'm watching, reading, playing, and eating.
+      </p>
+    </header>
+
+    <section>
+      <h2 class="font-serif text-2xl font-bold mb-6">All Entries</h2>
+      <div class="space-y-8">
+        {sorted.map(item => (
+          <Card item={item} collection="consuming" />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

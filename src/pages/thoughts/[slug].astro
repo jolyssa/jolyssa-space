@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/BaseLayout.astro';
+import Webmentions from '../../components/Webmentions.astro';
+
+export async function getStaticPaths() {
+  const thoughts = await getCollection('thoughts');
+  return thoughts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Format date
+const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Get related posts by tags
+const allThoughts = await getCollection('thoughts');
+const relatedPosts = allThoughts
+  .filter(p => 
+    p.slug !== post.slug && 
+    p.data.tags.some(tag => post.data.tags.includes(tag))
+  )
+  .slice(0, 3);
+---
+
+<Layout 
+  title={post.data.title}
+  description={post.data.excerpt}
+>
+  <article class="max-w-2xl mx-auto px-4 py-24">
+    <!-- Post Header -->
+    <header class="text-center mb-16">
+      <h1 class="font-serif text-5xl font-bold mb-4">
+        {post.data.title}
+      </h1>
+      <div class="text-text-secondary space-x-2">
+        <time datetime={post.data.date.toISOString()}>
+          {formattedDate}
+        </time>
+        <span>•</span>
+        <span>{post.data.readingTime}</span>
+        <span>•</span>
+        <span>Thoughts</span>
+      </div>
+      
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex flex-wrap justify-center gap-2 mt-4">
+          {post.data.tags.map(tag => (
+            <span class="text-xs px-3 py-1 bg-surface rounded-full text-text-secondary">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+    
+    <!-- Post Content -->
+    <div class="prose-custom">
+      <Content />
+    </div>
+    
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="mt-24">
+        <h2 class="font-serif text-2xl font-bold mb-6">Related Thoughts</h2>
+        <div class="space-y-4">
+          {relatedPosts.map(related => (
+            <a 
+              href={`/thoughts/${related.slug}/`}
+              class="block p-4 bg-surface rounded-lg hover:bg-surface/80 transition-colors"
+            >
+              <h3 class="font-semibold mb-1">{related.data.title}</h3>
+              <p class="text-sm text-text-secondary">{related.data.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+    
+    <!-- Webmentions -->
+    <Webmentions url={Astro.url.href} />
+    
+    <!-- Back Link -->
+    <div class="mt-16 text-center">
+      <a 
+        href="/thoughts"
+        class="text-accent hover:text-accent-light transition-colors"
+      >
+        ← Back to all thoughts
+      </a>
+    </div>
+  </article>
+</Layout>

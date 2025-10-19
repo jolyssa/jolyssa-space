@@ -1,16 +1,183 @@
 ---
+import Layout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
 
+const [music, making, movement, thoughts, consuming, work] = await Promise.all([
+  getCollection('music'),
+  getCollection('making'),
+  getCollection('movement'),
+  getCollection('thoughts'),
+  getCollection('consuming'),
+  getCollection('work'),
+]);
+
+const movementWithDates = movement.map(item => {
+  let d = new Date();
+  try {
+    d = new Date(`${item.data.month} 1, ${item.data.year}`);
+  } catch {}
+  return { ...item, data: { ...item.data, date: d } };
+});
+
+const withCollection = (arr, name) => arr.map(item => ({ ...item, collection: name }));
+
+const allContent = [
+  ...withCollection(music, 'music'),
+  ...withCollection(making, 'making'),
+  ...withCollection(thoughts, 'thoughts'),
+  ...withCollection(consuming, 'consuming'),
+  ...withCollection(work, 'work'),
+  ...withCollection(movementWithDates, 'movement'),
+].sort((a, b) => {
+  const ad = a.data?.date ? new Date(a.data.date).getTime() : 0;
+  const bd = b.data?.date ? new Date(b.data.date).getTime() : 0;
+  return bd - ad;
+});
+
+const recentItems = allContent.slice(0, 6);
+
+const goals2026 = [
+  { text: 'Build something with Svelte', completed: false },
+  { text: 'Land a kickflip', completed: false },
+  { text: 'Finish 5 DJ mixes', completed: false, progress: '2/5' },
+  { text: 'Make something with wood', completed: false },
+  { text: 'Read 12 books', completed: false, progress: '3/12' },
+  { text: 'Launch this website', completed: true },
+  { text: 'Finish clay incense holder', completed: true },
+];
+
+const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/yourname';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout 
+  title="Home" 
+  description="I can't be contained, yet here I am trying to contain myself. Music, code, making, and proof of life."
+>
+  <!-- Hero Section -->
+  <section class="max-w-4xl mx-auto px-4 pt-24 pb-32">
+    <div class="text-center space-y-8">
+      <h1 class="font-serif text-5xl md:text-6xl font-bold">
+        Your Name
+      </h1>
+      
+      <div class="space-y-6 text-lg md:text-xl leading-relaxed text-text-secondary max-w-2xl mx-auto">
+        <p>
+          I can't be contained, yet here I am trying to contain myself. 
+          I'm contradictory. I love trying. I love the human experience.
+        </p>
+        
+        <p>
+          I make music, write code, build things with my hands, and think too much. 
+          I'm obsessed with feeling alive.
+        </p>
+        
+        <p class="text-text-primary">
+          Selfishly, I want to be remembered. This is how.
+        </p>
+      </div>
+      
+      <!-- Office Hours CTA -->
+      <div class="card max-w-md mx-auto mt-12">
+        <h3 class="font-semibold mb-2">Want to talk?</h3>
+        <p class="text-text-secondary mb-4">
+          Fridays 2-3pm EST
+        </p>
+        <a 
+          href={calendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary inline-block"
+        >
+          Grab 15 minutes →
+        </a>
+      </div>
+      
+      <!-- RSS Subscribe -->
+      <div class="flex items-center justify-center gap-4 text-sm">
+        <a href="/rss.xml" class="text-accent hover:text-accent-light transition-colors">
+          Subscribe via RSS →
+        </a>
+        <span class="text-text-secondary">•</span>
+        <a 
+          href="https://aboutfeeds.com/" 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-secondary hover:text-accent transition-colors"
+        >
+          What's RSS?
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Goals Widget -->
+  <section class="max-w-4xl mx-auto px-4 pb-24">
+    <h2 class="font-serif text-4xl font-bold mb-8">
+      2026: Things I'm Trying
+    </h2>
+    
+    <div class="card space-y-3">
+      {goals2026.map(goal => (
+        <div class="flex items-center gap-3">
+          <span class:list={[
+            "text-xl",
+            { "opacity-40": goal.completed }
+          ]}>
+            {goal.completed ? '☑' : '☐'}
+          </span>
+          <span class:list={[
+            "flex-1",
+            { "opacity-40 line-through": goal.completed }
+          ]}>
+            {goal.text}
+            {goal.progress && (
+              <span class="text-text-secondary ml-2">({goal.progress})</span>
+            )}
+          </span>
+        </div>
+      ))}
+      
+      <div class="border-t border-surface pt-4 mt-4">
+        <p class="text-text-secondary text-sm">
+          2025 Goals (Archived)
+        </p>
+        <p class="text-text-secondary text-sm">
+          Completed: 12/15
+        </p>
+        <a href="/goals" class="text-accent hover:text-accent-light text-sm">
+          View all →
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Recent Activity -->
+  <section class="max-w-4xl mx-auto px-4 pb-24">
+    <h2 class="font-serif text-4xl font-bold mb-8">
+      Recent Proof of Life
+    </h2>
+    
+    <div class="space-y-8">
+      {recentItems.map(item => (
+        <Card item={item} collection={item.collection} />
+      ))}
+    </div>
+    
+    <div class="flex items-center justify-center gap-6 mt-12">
+      <a 
+        href="/archive" 
+        class="text-accent hover:text-accent-light transition-colors"
+      >
+        View everything →
+      </a>
+      <span class="text-text-secondary">•</span>
+      <a 
+        href="/archive" 
+        class="text-accent hover:text-accent-light transition-colors"
+      >
+        Archive by year →
+      </a>
+    </div>
+  </section>
+</Layout>

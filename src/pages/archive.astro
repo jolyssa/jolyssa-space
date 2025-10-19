@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+---
+
+<Layout title="Archive" description="Everything I've posted, organized by year.">
+  <section class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-12">
+      <h1 class="font-serif text-5xl font-bold mb-2">Archive</h1>
+      <p class="text-text-secondary">Everything I've posted, organized by year.</p>
+    </header>
+
+    <!-- Simple archive listing (grouped by year) -->
+    {
+      (async () => {
+        const collections = ['music','making','movement','thoughts','consuming','work'];
+        const results = await Promise.all(collections.map(c => getCollection(c)));
+        const [music, making, movement, thoughts, consuming, work] = results;
+        const movementWithDates = movement.map(item => {
+          let d = new Date();
+          try { d = new Date(`${item.data.month} 1, ${item.data.year}`); } catch {}
+          return { ...item, data: { ...item.data, date: d, title: `${item.data.month} ${item.data.year}` } };
+        });
+        const all = [
+          ...music.map(i => ({...i, collection:'music'})),
+          ...making.map(i => ({...i, collection:'making'})),
+          ...thoughts.map(i => ({...i, collection:'thoughts'})),
+          ...consuming.map(i => ({...i, collection:'consuming'})),
+          ...work.map(i => ({...i, collection:'work'})),
+          ...movementWithDates.map(i => ({...i, collection:'movement'})),
+        ].filter(i => i.data?.date).sort((a,b) => new Date(b.data.date) - new Date(a.data.date));
+
+        const byYear = all.reduce((acc, item) => {
+          const y = new Date(item.data.date).getFullYear();
+          acc[y] = acc[y] || [];
+          acc[y].push(item);
+          return acc;
+        }, {});
+
+        const years = Object.keys(byYear).sort((a,b) => Number(b) - Number(a));
+
+        return (
+          <div class="space-y-12">
+            {years.map(year => (
+              <section>
+                <h2 class="font-serif text-3xl font-bold mb-6">{year} <span class="text-text-secondary text-base">({byYear[year].length} posts)</span></h2>
+                <div class="space-y-6">
+                  {byYear[year].map(item => (
+                    <Card item={item} collection={item.collection} />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        );
+      })()}
+  </section>
+</Layout>

@@ -1,0 +1,145 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: 'Music', href: '/music' },
+  { label: 'Making', href: '/making' },
+  { label: 'Movement', href: '/movement' },
+  { label: 'Thoughts', href: '/thoughts' },
+  { label: 'Consuming', href: '/consuming' },
+  { label: 'Now', href: '/now' },
+  { label: '🎲', href: '/random', title: 'Random post' },
+];
+---
+
+<nav class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-surface">
+  <div class="max-w-6xl mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo/Name -->
+      <a href="/" class="font-serif text-xl font-bold hover:text-accent transition-colors">
+        Your Name
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-6">
+        {navItems.map(item => (
+          <a 
+            href={item.href}
+            title={item.title}
+            class:list={[
+              "nav-link text-sm font-medium transition-colors hover:text-accent",
+              { "text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+        
+        <button 
+          id="theme-toggle"
+          class="p-2 rounded hover:bg-surface transition-colors"
+          aria-label="Toggle theme"
+        >
+          <span class="dark:hidden">🌙</span>
+          <span class="hidden dark:inline">☀️</span>
+        </button>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button 
+        id="mobile-menu-button"
+        class="md:hidden p-2 rounded hover:bg-surface transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div 
+    id="mobile-menu" 
+    class="hidden md:hidden border-t border-surface"
+  >
+    <div class="px-4 py-4 space-y-2">
+      {navItems.map(item => (
+        <a 
+          href={item.href}
+          class:list={[
+            "block py-2 px-4 rounded hover:bg-surface transition-colors",
+            { "bg-surface text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      
+      <button 
+        id="mobile-theme-toggle"
+        class="w-full text-left py-2 px-4 rounded hover:bg-surface transition-colors"
+      >
+        <span class="dark:hidden">🌙 Dark mode</span>
+        <span class="hidden dark:inline">☀️ Light mode</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Theme toggle
+  function initTheme() {
+    try {
+      const theme = localStorage.getItem('theme') || 'dark';
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (e) {}
+  }
+  
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+    const newTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    try { localStorage.setItem('theme', newTheme); } catch (e) {}
+  }
+  
+  // Desktop theme toggle
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  
+  // Mobile theme toggle
+  document.getElementById('mobile-theme-toggle')?.addEventListener('click', toggleTheme);
+  
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+  
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (mobileMenuButton && mobileMenu && target && !mobileMenuButton.contains(target) && !mobileMenu.contains(target)) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+  
+  // Initialize theme on load
+  initTheme();
+</script>
+
+<style>
+  .nav-link.active::after {
+    content: '•';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #4791B1;
+    font-size: 0.75rem;
+  }
+</style>

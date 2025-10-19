@@ -1,0 +1,185 @@
+# Decap CMS Configuration
+backend:
+  name: github
+  repo: yourusername/your-repo-name # CHANGE THIS to your GitHub repo
+  branch: main
+  base_url: https://api.netlify.com # GitHub OAuth proxy
+  auth_endpoint: auth
+
+# Local development
+local_backend: true
+
+# Media files
+media_folder: "public/images" # Where images are stored
+public_folder: "/images" # How they're referenced in markdown
+
+# Publish mode
+publish_mode: editorial_workflow # Enables draft/review/publish workflow
+
+# Site URL for previews
+site_url: https://yoursite.com # CHANGE THIS to your actual domain
+
+# Collections
+collections:
+  # MUSIC COLLECTION
+  - name: "music"
+    label: "Music"
+    label_singular: "Music Post"
+    folder: "src/content/music"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "music/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { 
+          label: "Type", 
+          name: "type", 
+          widget: "select", 
+          options: ["mix", "remix", "original", "production-note"],
+          default: "mix"
+        }
+      - { label: "Duration", name: "duration", widget: "string", required: false, hint: "e.g., 1hr 23min" }
+      - { label: "SoundCloud URL", name: "soundcloudUrl", widget: "string", required: false }
+      - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # MAKING COLLECTION
+  - name: "making"
+    label: "Making"
+    label_singular: "Making Post"
+    folder: "src/content/making"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "making/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { 
+          label: "Type", 
+          name: "type", 
+          widget: "select", 
+          options: ["diy", "clay", "wood", "restoration", "other"],
+          default: "diy"
+        }
+      - { 
+          label: "Status", 
+          name: "status", 
+          widget: "select", 
+          options: ["completed", "in-progress", "abandoned"],
+          default: "in-progress"
+        }
+      - { label: "Materials", name: "materials", widget: "list", required: false, hint: "List of materials used" }
+      - { label: "Cost", name: "cost", widget: "string", required: false, hint: "e.g., $45" }
+      - { label: "Images", name: "images", widget: "list", required: false, field: { label: "Image", name: "image", widget: "image" } }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # MOVEMENT COLLECTION
+  - name: "movement"
+    label: "Movement"
+    label_singular: "Movement Entry"
+    folder: "src/content/movement"
+    create: true
+    slug: "{{year}}-{{month}}"
+    preview_path: "movement/{{slug}}"
+    fields:
+      - { label: "Month", name: "month", widget: "string", hint: "e.g., January 2025" }
+      - { label: "Year", name: "year", widget: "number", value_type: "int" }
+      - { label: "Workout Days", name: "workoutDays", widget: "number", value_type: "int", hint: "Days with structured exercise" }
+      - { label: "Total Days", name: "totalDays", widget: "number", value_type: "int", hint: "Days in month" }
+      - { label: "Active Days", name: "activeDays", widget: "number", value_type: "int", required: false, hint: "Days with any movement" }
+      - { label: "Types", name: "types", widget: "list", hint: "e.g., running, climbing, yoga" }
+      - { label: "Notes", name: "notes", widget: "text", hint: "General reflections" }
+      - { label: "What Worked", name: "whatWorked", widget: "text" }
+      - { label: "What Didn't", name: "whatDidnt", widget: "text" }
+      - { label: "Improvements", name: "improvements", widget: "text", hint: "Focus for next month" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # THOUGHTS COLLECTION
+  - name: "thoughts"
+    label: "Thoughts"
+    label_singular: "Thought"
+    folder: "src/content/thoughts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "thoughts/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Short description for preview cards" }
+      - { label: "Reading Time", name: "readingTime", widget: "string", required: false, hint: "Auto-calculated on save" }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Mood", name: "mood", widget: "string", required: false, hint: "e.g., existential, hopeful, creative" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # CONSUMING COLLECTION
+  - name: "consuming"
+    label: "Consuming"
+    label_singular: "Consumed Item"
+    folder: "src/content/consuming"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "consuming/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { 
+          label: "Type", 
+          name: "type", 
+          widget: "select", 
+          options: ["movie", "book", "game", "food"],
+          default: "movie"
+        }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Rating", name: "rating", widget: "number", value_type: "int", min: 1, max: 5, required: false }
+      - { 
+          label: "Status", 
+          name: "status", 
+          widget: "select", 
+          options: ["completed", "current", "abandoned", "craving"],
+          default: "completed"
+        }
+      - { label: "Blurb", name: "blurb", widget: "text", hint: "Short version for list view" }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # WORK COLLECTION
+  - name: "work"
+    label: "Work"
+    label_singular: "Work Project"
+    folder: "src/content/work"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "work/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Technologies", name: "tech", widget: "list", hint: "e.g., Astro, React, Node.js" }
+      - { label: "Live URL", name: "liveUrl", widget: "string", required: false }
+      - { label: "GitHub URL", name: "githubUrl", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { 
+          label: "Status", 
+          name: "status", 
+          widget: "select", 
+          options: ["completed", "in-progress", "idea"],
+          default: "in-progress",
+          required: false
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+# Editor settings
+editor:
+  preview: true
+
+# Slug configuration
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"

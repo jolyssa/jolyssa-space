@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('movement');
+  return items.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const title = `${post.data.month} ${post.data.year}`;
+---
+
+<Layout 
+  title={title}
+  description={post.data.notes}
+>
+  <article class="max-w-2xl mx-auto px-4 py-24">
+    <header class="text-center mb-12">
+      <h1 class="font-serif text-5xl font-bold mb-3">{title}</h1>
+      <div class="text-text-secondary">
+        <span>{post.data.workoutDays}/{post.data.totalDays} workout days</span>
+        {post.data.activeDays && (<span> • {post.data.activeDays} active days</span>)}
+      </div>
+    </header>
+
+    <div class="prose-custom">
+      <Content />
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href="/movement" class="text-accent hover:text-accent-light">← Back to movement</a>
+    </div>
+  </article>
+</Layout>

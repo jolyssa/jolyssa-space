@@ -1,0 +1,60 @@
+---
+const { item, collection } = Astro.props;
+
+// Map collection types to emojis
+const emojiMap = {
+  music: '🎵',
+  making: '🔨',
+  movement: '💪',
+  thoughts: '💭',
+  consuming: '📺',
+  work: '💻',
+};
+
+const emoji = emojiMap[collection] || '📝';
+
+// Format date safely
+const getDate = (d) => d ? new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+const formattedDate = getDate(item.data.date);
+
+// Get excerpt
+const excerpt = item.data.excerpt || item.data.blurb || item.data.description || '';
+const truncatedExcerpt = excerpt && excerpt.length > 150 ? excerpt.substring(0, 150) + '...' : excerpt;
+---
+
+<a 
+  href={`/${collection}/${item.slug}/`}
+  class="card block group"
+>
+  <div class="flex items-start gap-3 mb-3">
+    <span class="text-2xl">{emoji}</span>
+    <div class="flex-1">
+      <h3 class="font-serif text-xl font-bold mb-1 group-hover:text-accent transition-colors">
+        {item.data.title}
+      </h3>
+      <p class="text-sm text-text-secondary">
+        {formattedDate}{formattedDate && ' • '}{collection.charAt(0).toUpperCase() + collection.slice(1)}
+      </p>
+    </div>
+  </div>
+  
+  {truncatedExcerpt && (
+    <p class="text-text-secondary leading-relaxed mb-4">
+      {truncatedExcerpt}
+    </p>
+  )}
+  
+  {item.data.tags && item.data.tags.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {item.data.tags.slice(0, 3).map(tag => (
+        <span class="text-xs px-2 py-1 bg-surface rounded text-text-secondary">
+          #{tag}
+        </span>
+      ))}
+    </div>
+  )}
+  
+  <div class="mt-4 text-accent group-hover:text-accent-light transition-colors">
+    Read more →
+  </div>
+</a>

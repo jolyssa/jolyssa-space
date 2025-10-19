@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const music = await getCollection('music');
+  return music.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout 
+  title={post.data.title}
+  description={post.data.excerpt || post.data.description || ''}
+>
+  <article class="max-w-2xl mx-auto px-4 py-24">
+    <header class="text-center mb-12">
+      <h1 class="font-serif text-5xl font-bold mb-3">{post.data.title}</h1>
+      <div class="text-text-secondary">
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        {post.data.duration && (<span> • {post.data.duration}</span>)}
+      </div>
+    </header>
+
+    {post.data.soundcloudUrl && (
+      <div class="mb-8">
+        <iframe 
+          width="100%" 
+          height="166" 
+          scrolling="no" 
+          frameborder="no"
+          src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(post.data.soundcloudUrl)}`}>
+        </iframe>
+      </div>
+    )}
+
+    <div class="prose-custom">
+      <Content />
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href="/music" class="text-accent hover:text-accent-light">← Back to all music</a>
+    </div>
+  </article>
+</Layout>

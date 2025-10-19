@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all posts
+const music = await getCollection('music');
+const making = await getCollection('making');
+const thoughts = await getCollection('thoughts');
+const consuming = await getCollection('consuming');
+const work = await getCollection('work');
+
+const allPosts = [
+  ...music.map(p => ({ ...p, collection: 'music' })),
+  ...making.map(p => ({ ...p, collection: 'making' })),
+  ...thoughts.map(p => ({ ...p, collection: 'thoughts' })),
+  ...consuming.map(p => ({ ...p, collection: 'consuming' })),
+  ...work.map(p => ({ ...p, collection: 'work' })),
+];
+
+// Pick random post
+const randomIndex = Math.floor(Math.random() * allPosts.length);
+const randomPost = allPosts[randomIndex];
+
+// Redirect to random post
+return Astro.redirect(`/${randomPost.collection}/${randomPost.slug}/`);
+---

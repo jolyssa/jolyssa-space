@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const allMusic = await getCollection('music');
+const sortedMusic = allMusic.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featured = sortedMusic.filter(item => item.data.featured);
+---
+
+<Layout 
+  title="Music" 
+  description="DJ mixes, remixes, originals, and production notes."
+>
+  <div class="max-w-4xl mx-auto px-4 py-24">
+    <header class="mb-16">
+      <h1 class="font-serif text-5xl font-bold mb-4">
+        Music
+      </h1>
+      <p class="text-xl text-text-secondary leading-relaxed">
+        DJ mixes, remixes, production notes, and whatever sounds I'm making.
+      </p>
+    </header>
+    
+    {featured.length > 0 && (
+      <section class="mb-16">
+        <h2 class="font-serif text-2xl font-bold mb-6">Featured</h2>
+        <div class="space-y-8">
+          {featured.map(item => (
+            <Card item={item} collection="music" />
+          ))}
+        </div>
+      </section>
+    )}
+    
+    <section>
+      <h2 class="font-serif text-2xl font-bold mb-6">All Music</h2>
+      <div class="space-y-8">
+        {sortedMusic.map(item => (
+          <Card item={item} collection="music" />
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
