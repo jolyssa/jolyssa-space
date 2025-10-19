@@ -16,7 +16,7 @@ public_folder: "/images" # How they're referenced in markdown
 publish_mode: editorial_workflow # Enables draft/review/publish workflow
 
 # Site URL for previews
-site_url: https://jolyssa-space.pages.dev # Update this with your actual domain when deployed
+site_url: https://jolyssa.space
 
 # Collections
 collections:

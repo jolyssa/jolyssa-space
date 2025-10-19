@@ -11,6 +11,6 @@
 
 # API route headers  
 /functions/*
-  Access-Control-Allow-Origin: https://jolyssa-space.pages.dev
+  Access-Control-Allow-Origin: https://jolyssa.space
   Access-Control-Allow-Methods: GET, POST, OPTIONS
   Access-Control-Allow-Headers: Content-Type, Authorization
