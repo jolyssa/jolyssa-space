@@ -1,7 +1,9 @@
 # Decap CMS Configuration
 backend:
-  name: git-gateway
+  name: github
+  repo: jolyssa/jolyssa-space
   branch: main
+  base_url: /functions/auth
 
 # Local development
 local_backend: true
