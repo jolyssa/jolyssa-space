@@ -1,7 +1,7 @@
 # Decap CMS Configuration
 backend:
   name: github
-  repo: yourusername/your-repo-name # CHANGE THIS to your GitHub repo
+  repo: jolyssa/jolyssa-space
   branch: main
   base_url: https://api.netlify.com # GitHub OAuth proxy
   auth_endpoint: auth
@@ -17,7 +17,7 @@ public_folder: "/images" # How they're referenced in markdown
 publish_mode: editorial_workflow # Enables draft/review/publish workflow
 
 # Site URL for previews
-site_url: https://yoursite.com # CHANGE THIS to your actual domain
+site_url: https://jolyssa-space.pages.dev # Update this with your actual domain when deployed
 
 # Collections
 collections:
