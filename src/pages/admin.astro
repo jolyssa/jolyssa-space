@@ -173,6 +173,10 @@
       const token = localStorage.getItem('github_token');
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
+      console.log('Checking auth...');
+      console.log('Token found:', token ? 'Yes' : 'No');
+      console.log('Environment:', isLocalhost ? 'localhost' : 'production');
+      
       if (token) {
         // Mock auth for localhost
         if (isLocalhost && token === 'mock-token-for-localhost') {
