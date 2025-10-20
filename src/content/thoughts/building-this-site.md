@@ -2,7 +2,6 @@
 title: "Building This Site"
 date: 2025-01-20
 excerpt: "Why I built this digital garden and what I hope it becomes."
-readingTime: "5 min read"
 tags: ["meta", "web", "personal"]
 featured: true
 ---

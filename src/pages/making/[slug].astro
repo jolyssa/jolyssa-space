@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { calculateReadingTimeForPost } from '../../utils/readingTime.js';
 
 export async function getStaticPaths() {
   const items = await getCollection('making');
@@ -17,6 +18,9 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric'
 });
+
+// Calculate reading time
+const readingTime = await calculateReadingTimeForPost(post);
 ---
 
 <Layout 
@@ -28,6 +32,10 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
       <h1 class="font-serif text-5xl font-bold mb-3">{post.data.title}</h1>
       <div class="text-text-secondary">
         <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        <span> • </span>
+        <span>{readingTime}</span>
+        <span> • </span>
+        <span>Making</span>
       </div>
     </header>
 

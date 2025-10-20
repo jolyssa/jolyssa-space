@@ -2,7 +2,6 @@
 title: "TEMPLATE - Thought Title"
 date: 2025-01-15
 excerpt: "A brief description of this thought/essay for preview cards and social media."
-readingTime: "5 min read"
 tags: ["philosophy", "personal", "reflection"]
 mood: "contemplative"
 featured: false

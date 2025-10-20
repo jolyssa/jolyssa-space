@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/BaseLayout.astro';
 import Webmentions from '../../components/Webmentions.astro';
+import { calculateReadingTimeForPost } from '../../utils/readingTime.js';
 
 export async function getStaticPaths() {
   const thoughts = await getCollection('thoughts');
@@ -13,6 +14,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+// Calculate reading time (use manual value if provided, otherwise auto-calculate)
+const readingTime = post.data.readingTime || await calculateReadingTimeForPost(post);
 
 // Format date
 const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
@@ -46,7 +50,7 @@ const relatedPosts = allThoughts
           {formattedDate}
         </time>
         <span>•</span>
-        <span>{post.data.readingTime}</span>
+        <span>{readingTime}</span>
         <span>•</span>
         <span>Thoughts</span>
       </div>

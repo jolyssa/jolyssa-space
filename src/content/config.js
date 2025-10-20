@@ -58,7 +58,7 @@ const thoughts = defineCollection({
     title: z.string(),
     date: z.date(),
     excerpt: z.string(), // For preview cards
-    readingTime: z.string(), // "8 min read"
+    readingTime: z.string().optional(), // "8 min read" - will be auto-calculated if not provided
     tags: z.array(z.string()),
     mood: z.string().optional(), // "existential", "hopeful", etc
     featured: z.boolean().default(false),
