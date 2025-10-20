@@ -21,8 +21,8 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
   day: 'numeric'
 });
 
-// Get related posts by tags
-const allThoughts = await getCollection('thoughts');
+// Get related posts by tags (excluding templates)
+const allThoughts = await getCollection('thoughts', ({ data }) => !data.isTemplate);
 const relatedPosts = allThoughts
   .filter(p => 
     p.slug !== post.slug && 
@@ -35,7 +35,7 @@ const relatedPosts = allThoughts
   title={post.data.title}
   description={post.data.excerpt}
 >
-  <article class="max-w-2xl mx-auto px-4 py-24">
+  <article class="max-w-4xl mx-auto px-4 py-24">
     <!-- Post Header -->
     <header class="text-center mb-16">
       <h1 class="font-serif text-5xl font-bold mb-4 text-text-primary-light dark:text-text-primary">

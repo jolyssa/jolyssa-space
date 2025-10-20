@@ -16,7 +16,7 @@ const navItems = [
   <div class="max-w-6xl mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <!-- Logo/Name -->
-      <a href="/" class="font-serif text-xl font-bold text-text-primary-light dark:text-text-primary hover:text-accent transition-colors">
+      <a href="/" class="font-mono text-xl font-bold text-text-primary-light dark:text-text-primary hover:text-accent transition-colors">
         jolyssa.
       </a>
       
@@ -27,7 +27,7 @@ const navItems = [
             href={item.href}
             title={item.title}
             class:list={[
-              "nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent",
+              "nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent font-mono",
               { "text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
             ]}
           >
@@ -68,7 +68,7 @@ const navItems = [
         <a 
           href={item.href}
           class:list={[
-            "block py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors",
+            "block py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors font-mono",
             { "bg-surface-light dark:bg-surface text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
           ]}
         >
@@ -78,7 +78,7 @@ const navItems = [
       
       <button 
         id="mobile-theme-toggle"
-        class="w-full text-left py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors"
+        class="w-full text-left py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors font-mono"
       >
         <span class="dark:hidden">🌙 Dark mode</span>
         <span class="hidden dark:inline">☀️ Light mode</span>

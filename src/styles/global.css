@@ -48,7 +48,7 @@
     @apply prose-headings:font-serif;
     @apply prose-a:text-accent prose-a:no-underline;
     @apply prose-gray;
-    @apply max-w-2xl mx-auto;
+    @apply max-w-3xl mx-auto;
   }
   
   /* Light mode prose improvements */

@@ -32,14 +32,14 @@ const truncatedExcerpt = excerpt && excerpt.length > 150 ? excerpt.substring(0, 
       <h3 class="font-serif text-xl font-bold mb-1 text-text-primary-light dark:text-text-primary group-hover:text-accent transition-colors">
         {item.data.title}
       </h3>
-      <p class="text-sm text-text-secondary-light dark:text-text-secondary">
+      <p class="text-sm text-text-secondary-light dark:text-text-secondary font-mono">
         {formattedDate}{formattedDate && ' • '}{collection.charAt(0).toUpperCase() + collection.slice(1)}
       </p>
     </div>
   </div>
   
   {truncatedExcerpt && (
-    <p class="text-text-secondary-light dark:text-text-secondary leading-relaxed mb-4">
+    <p class="text-text-secondary-light dark:text-text-secondary leading-relaxed mb-4 font-mono">
       {truncatedExcerpt}
     </p>
   )}
@@ -47,7 +47,7 @@ const truncatedExcerpt = excerpt && excerpt.length > 150 ? excerpt.substring(0, 
   {item.data.tags && item.data.tags.length > 0 && (
     <div class="flex flex-wrap gap-2">
       {item.data.tags.slice(0, 3).map(tag => (
-        <span class="text-xs px-2 py-1 bg-surface-light dark:bg-surface rounded text-text-secondary-light dark:text-text-secondary">
+        <span class="text-xs px-2 py-1 bg-surface-light dark:bg-surface rounded text-text-secondary-light dark:text-text-secondary font-mono">
           #{tag}
         </span>
       ))}
