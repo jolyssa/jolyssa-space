@@ -274,36 +274,8 @@
       window.open(`${repoUrl}/${contentPath}`, '_blank');
     }
 
-    // Handle OAuth callback
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    const storedState = localStorage.getItem('oauth_state');
-
-    if (code && state && state === storedState) {
-      // Exchange code for token using our Cloudflare Function
-      exchangeCodeForToken(code);
-    }
-
-    async function exchangeCodeForToken(code) {
-      try {
-        const response = await fetch(`/functions/auth?code=${code}`);
-        
-        if (response.ok) {
-          // The auth function should return the token or set it
-          // For now, we'll simulate getting the token
-          const data = await response.text();
-          
-          // Extract token from response (this depends on how the function returns it)
-          // For now, let's try to get it from the redirect or response
-          checkAuth(); // Re-check auth status
-        } else {
-          showError('Authentication failed. Please try again.');
-        }
-      } catch (error) {
-        showError('Authentication failed. Please try again.');
-      }
-    }
+    // No need for manual OAuth callback handling - 
+    // the /functions/auth endpoint handles everything
 
     function showError(message) {
       const errorDiv = document.getElementById('login-error');
