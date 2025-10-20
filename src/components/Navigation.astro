@@ -12,11 +12,11 @@ const navItems = [
 ];
 ---
 
-<nav class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-surface">
+<nav class="sticky top-0 z-40 bg-background-light/80 dark:bg-background/80 backdrop-blur-md border-b border-surface-light dark:border-surface">
   <div class="max-w-6xl mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <!-- Logo/Name -->
-      <a href="/" class="font-serif text-xl font-bold hover:text-accent transition-colors">
+      <a href="/" class="font-serif text-xl font-bold text-text-primary-light dark:text-text-primary hover:text-accent transition-colors">
         jolyssa.
       </a>
       
@@ -27,7 +27,7 @@ const navItems = [
             href={item.href}
             title={item.title}
             class:list={[
-              "nav-link text-sm font-medium transition-colors hover:text-accent",
+              "nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent",
               { "text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
             ]}
           >
@@ -37,7 +37,7 @@ const navItems = [
         
         <button 
           id="theme-toggle"
-          class="p-2 rounded hover:bg-surface transition-colors"
+          class="p-2 rounded hover:bg-surface-light dark:hover:bg-surface transition-colors"
           aria-label="Toggle theme"
         >
           <span class="dark:hidden">🌙</span>
@@ -48,7 +48,7 @@ const navItems = [
       <!-- Mobile Menu Button -->
       <button 
         id="mobile-menu-button"
-        class="md:hidden p-2 rounded hover:bg-surface transition-colors"
+        class="md:hidden p-2 rounded hover:bg-surface-light dark:hover:bg-surface transition-colors"
         aria-label="Toggle menu"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,15 +61,15 @@ const navItems = [
   <!-- Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="hidden md:hidden border-t border-surface"
+    class="hidden md:hidden border-t border-surface-light dark:border-surface"
   >
     <div class="px-4 py-4 space-y-2">
       {navItems.map(item => (
         <a 
           href={item.href}
           class:list={[
-            "block py-2 px-4 rounded hover:bg-surface transition-colors",
-            { "bg-surface text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
+            "block py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors",
+            { "bg-surface-light dark:bg-surface text-accent": currentPath.startsWith(item.href) && item.href !== '/' }
           ]}
         >
           {item.label}
@@ -78,7 +78,7 @@ const navItems = [
       
       <button 
         id="mobile-theme-toggle"
-        class="w-full text-left py-2 px-4 rounded hover:bg-surface transition-colors"
+        class="w-full text-left py-2 px-4 rounded text-text-secondary-light dark:text-text-secondary hover:bg-surface-light dark:hover:bg-surface transition-colors"
       >
         <span class="dark:hidden">🌙 Dark mode</span>
         <span class="hidden dark:inline">☀️ Light mode</span>

@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-  --color-background: #2D2D2D;
-  --color-background-light: #FAFAFA;
-  --color-surface: #3A3A3A;
-  --color-surface-light: #FFFFFF;
-  --color-text-primary: #E5E5E5;
-  --color-text-primary-light: #2D2D2D;
-  --color-text-secondary: #A6A6A6;
-  --color-text-secondary-light: #6B6B6B;
-  --color-accent: #4791B1;
-  --color-accent-light: #5BB3D9;
-  
-  --font-family-serif: 'Libre Baskerville', serif;
-  --font-family-sans: 'General Sans', 'Work Sans', sans-serif;
-  --font-family-mono: 'Geist Mono', monospace;
-}
-
 @layer base {
   /* Font faces if self-hosting */
   html {
@@ -27,7 +10,6 @@
   
   body {
     @apply bg-background text-text-primary;
-    @apply dark:bg-background dark:text-text-primary;
     @apply transition-colors duration-300;
   }
   
@@ -65,7 +47,23 @@
     @apply dark:prose-invert;
     @apply prose-headings:font-serif;
     @apply prose-a:text-accent prose-a:no-underline;
+    @apply prose-gray;
     @apply max-w-2xl mx-auto;
+  }
+  
+  /* Light mode prose improvements */
+  html:not(.dark) .prose-custom {
+    @apply prose-slate;
+  }
+  
+  html:not(.dark) .prose-custom p {
+    @apply text-gray-800;
+  }
+  
+  html:not(.dark) .prose-custom h1, 
+  html:not(.dark) .prose-custom h2, 
+  html:not(.dark) .prose-custom h3 {
+    @apply text-gray-900;
   }
 }
 

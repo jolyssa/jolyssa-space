@@ -3,8 +3,8 @@ import Layout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const allMusic = await getCollection('music');
-const sortedMusic = allMusic.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const all = await getCollection('music', ({ data }) => !data.isTemplate);
+const sortedMusic = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const featured = sortedMusic.filter(item => item.data.featured);
 ---
 

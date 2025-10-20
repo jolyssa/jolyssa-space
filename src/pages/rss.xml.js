@@ -2,12 +2,12 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-  // Get all content from all collections
-  const music = await getCollection('music');
-  const making = await getCollection('making');
-  const thoughts = await getCollection('thoughts');
-  const consuming = await getCollection('consuming');
-  const work = await getCollection('work');
+  // Get all content from all collections (excluding templates)
+  const music = await getCollection('music', ({ data }) => !data.isTemplate);
+  const making = await getCollection('making', ({ data }) => !data.isTemplate);
+  const thoughts = await getCollection('thoughts', ({ data }) => !data.isTemplate);
+  const consuming = await getCollection('consuming', ({ data }) => !data.isTemplate);
+  const work = await getCollection('work', ({ data }) => !data.isTemplate);
 
   // Combine and sort by date
   const allPosts = [

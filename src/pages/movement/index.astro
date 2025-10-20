@@ -3,7 +3,7 @@ import Layout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const all = await getCollection('movement');
+const all = await getCollection('movement', ({ data }) => !data.isTemplate);
 // synthesize titles and dates for movement
 const normalized = all.map(item => {
   let d = new Date();

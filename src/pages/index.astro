@@ -4,12 +4,12 @@ import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const [music, making, movement, thoughts, consuming, work] = await Promise.all([
-  getCollection('music'),
-  getCollection('making'),
-  getCollection('movement'),
-  getCollection('thoughts'),
-  getCollection('consuming'),
-  getCollection('work'),
+  getCollection('music', ({ data }) => !data.isTemplate),
+  getCollection('making', ({ data }) => !data.isTemplate),
+  getCollection('movement', ({ data }) => !data.isTemplate),
+  getCollection('thoughts', ({ data }) => !data.isTemplate),
+  getCollection('consuming', ({ data }) => !data.isTemplate),
+  getCollection('work', ({ data }) => !data.isTemplate),
 ]);
 
 const movementWithDates = movement.map(item => {
@@ -57,11 +57,11 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
   <!-- Hero Section -->
   <section class="max-w-4xl mx-auto px-4 pt-24 pb-32">
     <div class="text-center space-y-8">
-      <h1 class="font-serif text-5xl md:text-6xl font-bold">
+      <h1 class="font-serif text-5xl md:text-6xl font-bold text-text-primary-light dark:text-text-primary">
         jolyssa.
       </h1>
       
-      <div class="space-y-6 text-lg md:text-xl font-mono leading-relaxed text-text-secondary max-w-2xl mx-auto">
+      <div class="space-y-6 text-lg md:text-xl font-mono leading-relaxed text-text-secondary-light dark:text-text-secondary max-w-2xl mx-auto">
         <p>
           i can't be contained, yet here I am trying to contain myself. 
           i'm contradictory. i love the process. i love the human experience.
@@ -72,15 +72,15 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
           i'm obsessed with feeling alive.
         </p>
         
-        <p class="text-text-primary">
+        <p class="text-text-primary-light dark:text-text-primary">
           selfishly, i want to be remembered. this is how.
         </p>
       </div>
       
       <!-- Office Hours CTA -->
       <div class="card max-w-md mx-auto mt-12">
-        <h3 class="font-semibold mb-2 font-serif">Want to talk?</h3>
-        <p class="text-text-secondary mb-4 font-mono">
+        <h3 class="font-semibold mb-2 font-serif text-text-primary-light dark:text-text-primary">Want to talk?</h3>
+        <p class="text-text-secondary-light dark:text-text-secondary mb-4 font-mono">
           Fridays 2-3pm EST
         </p>
         <a 
@@ -113,7 +113,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
   
   <!-- Goals Widget -->
   <section class="max-w-4xl mx-auto px-4 pb-24">
-    <h2 class="font-serif text-4xl font-bold mb-8">
+    <h2 class="font-serif text-4xl font-bold mb-8 text-text-primary-light dark:text-text-primary">
       Oct-Dec 2026: Things I'm Trying
     </h2>
     
@@ -154,7 +154,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
   
   <!-- Recent Activity -->
   <section class="max-w-4xl mx-auto px-4 pb-24">
-    <h2 class="font-serif text-4xl font-bold mb-8">
+    <h2 class="font-serif text-4xl font-bold mb-8 text-text-primary-light dark:text-text-primary">
       Recent Proof of Life
     </h2>
     

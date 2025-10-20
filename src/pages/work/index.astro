@@ -3,7 +3,7 @@ import Layout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
-const all = await getCollection('work');
+const all = await getCollection('work', ({ data }) => !data.isTemplate);
 const sorted = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 

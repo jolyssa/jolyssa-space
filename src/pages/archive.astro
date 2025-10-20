@@ -15,7 +15,7 @@ import { getCollection } from 'astro:content';
     {
       (async () => {
         const collections = ['music','making','movement','thoughts','consuming','work'];
-        const results = await Promise.all(collections.map(c => getCollection(c)));
+        const results = await Promise.all(collections.map(c => getCollection(c, ({ data }) => !data.isTemplate)));
         const [music, making, movement, thoughts, consuming, work] = results;
         const movementWithDates = movement.map(item => {
           let d = new Date();

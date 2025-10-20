@@ -12,6 +12,7 @@ const music = defineCollection({
     tags: z.array(z.string()),
     coverImage: z.string().optional(),
     featured: z.boolean().default(false),
+    isTemplate: z.boolean().default(false),
   })
 });
 
@@ -28,6 +29,7 @@ const making = defineCollection({
     tags: z.array(z.string()),
     images: z.array(z.string()).optional(),
     featured: z.boolean().default(false),
+    isTemplate: z.boolean().default(false),
   })
 });
 
@@ -45,6 +47,7 @@ const movement = defineCollection({
     whatWorked: z.string(), // Wins
     whatDidnt: z.string(), // Struggles
     improvements: z.string(), // Focus for next month
+    isTemplate: z.boolean().default(false),
   })
 });
 
@@ -59,6 +62,7 @@ const thoughts = defineCollection({
     tags: z.array(z.string()),
     mood: z.string().optional(), // "existential", "hopeful", etc
     featured: z.boolean().default(false),
+    isTemplate: z.boolean().default(false),
   })
 });
 
@@ -74,6 +78,7 @@ const consuming = defineCollection({
     blurb: z.string(), // Short version for list view
     tags: z.array(z.string()),
     image: z.string().optional(),
+    isTemplate: z.boolean().default(false),
   })
 });
 
@@ -89,6 +94,7 @@ const work = defineCollection({
     githubUrl: z.string().optional(),
     featured: z.boolean().default(false),
     status: z.enum(['completed', 'in-progress', 'idea']).optional(),
+    isTemplate: z.boolean().default(false),
   })
 });
 
