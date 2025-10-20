@@ -1,167 +1,157 @@
 // Cloudflare Pages Function for GitHub OAuth
+// IMPORTANT: This file must be exactly in /functions/auth.js for Cloudflare Pages
+
 export async function onRequestGet(context) {
-  const { request, env } = context;
-  const url = new URL(request.url);
-  
-  // OAuth configuration
-  const clientId = env.GITHUB_CLIENT_ID;
-  const clientSecret = env.GITHUB_CLIENT_SECRET;
-  
-  if (!clientId || !clientSecret) {
-    return new Response('OAuth not configured. Please set GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET environment variables.', {
-      status: 500
+  const url = new URL(context.request.url);
+  const code = url.searchParams.get('code');
+  const state = url.searchParams.get('state');
+  const error = url.searchParams.get('error');
+
+  // Debug logging
+  console.log('[AUTH] Function called');
+  console.log('[AUTH] Code present:', !!code);
+  console.log('[AUTH] Environment check:', !!context.env.GITHUB_CLIENT_ID);
+
+  // Check environment variables
+  if (!context.env.GITHUB_CLIENT_ID || !context.env.GITHUB_CLIENT_SECRET) {
+    console.error('[AUTH] Missing environment variables');
+    return new Response(null, {
+      status: 302,
+      headers: { 'Location': '/?error=missing_env_vars' },
     });
   }
-  
-  // Handle OAuth callback (when GitHub redirects back with code)
-  if (url.searchParams.has('code')) {
-    const code = url.searchParams.get('code');
-    const state = url.searchParams.get('state');
+  }
+
+  // Handle OAuth errors from GitHub
+  if (error) {
+    console.error('[AUTH] OAuth error from GitHub:', error);
+    return new Response(null, {
+      status: 302,
+      headers: { 'Location': `/?error=${error}` },
+    });
+  }
+
+  // Handle OAuth callback (when GitHub sends back the authorization code)
+  if (code) {
+    console.log('[AUTH] Processing OAuth callback');
     
     try {
-      console.log('Handling OAuth callback with code:', code);
-      
-      // Exchange code for access token
+      // Step 1: Exchange authorization code for access token
       const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          client_id: clientId,
-          client_secret: clientSecret,
-          code: code
-        })
+          client_id: context.env.GITHUB_CLIENT_ID,
+          client_secret: context.env.GITHUB_CLIENT_SECRET,
+          code: code,
+        }),
       });
-      
-      const tokenData = await tokenResponse.json();
-      console.log('Token response:', tokenData.access_token ? 'Success' : 'Failed');
-      
-      if (tokenData.access_token) {
-        // Verify the token works by getting user info
-        const userResponse = await fetch('https://api.github.com/user', {
-          headers: {
-            'Authorization': `token ${tokenData.access_token}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
-        
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          console.log('User verified:', userData.login);
-          
-          // Check if user is authorized
-          const allowedUsers = ['jolyssa', 'JojoW']; // Add your GitHub username(s)
-          if (!allowedUsers.includes(userData.login)) {
-            return new Response(`
-              <!DOCTYPE html>
-              <html>
-                <head>
-                  <title>Access Denied</title>
-                  <style>
-                    body { 
-                      background: #2D2D2D; 
-                      color: #E5E5E5; 
-                      font-family: Arial, sans-serif;
-                      text-align: center;
-                      padding: 4rem;
-                    }
-                  </style>
-                </head>
-                <body>
-                  <h1>Access Denied</h1>
-                  <p>This admin panel is for joji only.</p>
-                  <p>User: ${userData.login}</p>
-                  <p><a href="/" style="color: #4791B1;">Go Home</a></p>
-                </body>
-              </html>
-            `, {
-              headers: { 'Content-Type': 'text/html' },
-              status: 403
-            });
-          }
-        }
-        
-        // Return success page that stores token and redirects to admin
-        return new Response(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Authentication Success</title>
-              <style>
-                body { 
-                  background: #2D2D2D; 
-                  color: #E5E5E5; 
-                  font-family: Arial, sans-serif;
-                  text-align: center;
-                  padding: 4rem;
-                }
-                .loading {
-                  color: #4791B1;
-                }
-              </style>
-            </head>
-            <body>
-              <h1 class="loading">Authentication Successful! ✅</h1>
-              <p>Redirecting to admin dashboard...</p>
-              <script>
-                console.log('OAuth callback success - storing token and redirecting');
-                
-                // Store the token and clear any temporary OAuth state
-                localStorage.setItem('github_token', '${tokenData.access_token}');
-                localStorage.removeItem('oauth_state');
-                
-                // Redirect to admin page (without any URL parameters)
-                setTimeout(() => {
-                  window.location.replace('/admin');
-                }, 1000);
-              </script>
-            </body>
-          </html>
-        `, {
-          headers: { 'Content-Type': 'text/html' }
-        });
-      } else {
-        throw new Error('No access token received: ' + JSON.stringify(tokenData));
+
+      if (!tokenResponse.ok) {
+        throw new Error(`Token request failed: ${tokenResponse.status}`);
       }
-    } catch (error) {
-      console.error('OAuth error:', error);
+
+      const tokenData = await tokenResponse.json();
+      
+      if (tokenData.error) {
+        throw new Error(`GitHub error: ${tokenData.error}`);
+      }
+
+      if (!tokenData.access_token) {
+        throw new Error('No access token received');
+      }
+
+      console.log('[AUTH] Token received, verifying user');
+
+      // Step 2: Get user info
+      const userResponse = await fetch('https://api.github.com/user', {
+        headers: {
+          'Authorization': `Bearer ${tokenData.access_token}`,
+          'Accept': 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28',
+        },
+      });
+
+      if (!userResponse.ok) {
+        throw new Error(`User fetch failed: ${userResponse.status}`);
+      }
+
+      const userData = await userResponse.json();
+      console.log('[AUTH] User verified:', userData.login);
+
+      // Step 3: Check authorization
+      const AUTHORIZED_USERS = ['jolyssa', 'JojoW']; // UPDATE THIS WITH YOUR GITHUB USERNAME
+      
+      if (!AUTHORIZED_USERS.includes(userData.login)) {
+        console.error('[AUTH] Unauthorized user:', userData.login);
+        return new Response(null, {
+          status: 302,
+          headers: { 'Location': '/?error=unauthorized' },
+        });
+      }
+
+      console.log('[AUTH] User authorized, redirecting to admin');
+
+      // Step 4: Create session and redirect
       return new Response(`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Authentication Error</title>
-            <style>
-              body { 
-                background: #2D2D2D; 
-                color: #E5E5E5; 
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding: 4rem;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>Authentication Failed ❌</h1>
-            <p>Error: ${error.message}</p>
-            <p><a href="/admin" style="color: #4791B1;">Try again</a></p>
-          </body>
-        </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Successful</title>
+  <style>
+    body {
+      background: #2D2D2D;
+      color: #E5E5E5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ Login Successful!</h1>
+  <p>Redirecting to admin dashboard...</p>
+  <script>
+    console.log('[AUTH] Setting token and redirecting');
+    localStorage.setItem('github_token', '${tokenData.access_token}');
+    localStorage.removeItem('oauth_state');
+    setTimeout(() => {
+      window.location.replace('/admin');
+    }, 1000);
+  </script>
+</body>
+</html>
       `, {
         headers: { 'Content-Type': 'text/html' },
-        status: 400
+      });
+
+    } catch (error) {
+      console.error('[AUTH] OAuth callback error:', error);
+      return new Response(null, {
+        status: 302,
+        headers: { 'Location': `/?error=callback_failed` },
       });
     }
   }
-  
-  // If no code parameter, initiate OAuth flow
+
+  // No code parameter - redirect to GitHub OAuth
+  console.log('[AUTH] Initiating OAuth flow');
   const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
-  githubAuthUrl.searchParams.set('client_id', clientId);
+  githubAuthUrl.searchParams.set('client_id', context.env.GITHUB_CLIENT_ID);
   githubAuthUrl.searchParams.set('redirect_uri', `${url.origin}/functions/auth`);
   githubAuthUrl.searchParams.set('scope', 'repo,user');
-  githubAuthUrl.searchParams.set('state', url.searchParams.get('state') || 'cms');
+  githubAuthUrl.searchParams.set('state', state || 'admin');
   
-  console.log('Redirecting to GitHub OAuth:', githubAuthUrl.toString());
-  return Response.redirect(githubAuthUrl.toString(), 302);
+  return new Response(null, {
+    status: 302,
+    headers: { 'Location': githubAuthUrl.toString() },
+  });
+}
+
+// Also handle POST requests (some OAuth flows might use POST)
+export async function onRequestPost(context) {
+  return onRequestGet(context);
 }
