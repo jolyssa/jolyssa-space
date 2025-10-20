@@ -20,7 +20,6 @@ export async function onRequestGet(context) {
       headers: { 'Location': '/?error=missing_env_vars' },
     });
   }
-  }
 
   // Handle OAuth errors from GitHub
   if (error) {
@@ -135,7 +134,7 @@ export async function onRequestGet(context) {
         headers: { 'Location': `/?error=callback_failed` },
       });
     }
-  }
+  } // End of if (code) block
 
   // No code parameter - redirect to GitHub OAuth
   console.log('[AUTH] Initiating OAuth flow');
