@@ -61,40 +61,40 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
         jolyssa.
       </h1>
       
-      <div class="space-y-6 text-lg md:text-xl leading-relaxed text-text-secondary max-w-2xl mx-auto">
+      <div class="space-y-6 text-lg md:text-xl font-mono leading-relaxed text-text-secondary max-w-2xl mx-auto">
         <p>
-          I can't be contained, yet here I am trying to contain myself. 
-          I'm contradictory. I love trying. I love the human experience.
+          i can't be contained, yet here I am trying to contain myself. 
+          i'm contradictory. i love the process. i love the human experience.
         </p>
         
         <p>
-          I make music, write code, build things with my hands, and think too much. 
-          I'm obsessed with feeling alive.
+          i make music, write code, build things with my hands, and think too much. 
+          i'm obsessed with feeling alive.
         </p>
         
         <p class="text-text-primary">
-          Selfishly, I want to be remembered. This is how.
+          selfishly, i want to be remembered. this is how.
         </p>
       </div>
       
       <!-- Office Hours CTA -->
       <div class="card max-w-md mx-auto mt-12">
-        <h3 class="font-semibold mb-2">Want to talk?</h3>
-        <p class="text-text-secondary mb-4">
+        <h3 class="font-semibold mb-2 font-serif">Want to talk?</h3>
+        <p class="text-text-secondary mb-4 font-mono">
           Fridays 2-3pm EST
         </p>
         <a 
           href={calendarUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="btn-primary inline-block"
+          class="btn-primary inline-block font-mono"
         >
           Grab 15 minutes →
         </a>
       </div>
       
       <!-- RSS Subscribe -->
-      <div class="flex items-center justify-center gap-4 text-sm">
+      <div class="flex items-center justify-center gap-4 text-sm font-mono">
         <a href="/rss.xml" class="text-accent hover:text-accent-light transition-colors">
           Subscribe via RSS →
         </a>
@@ -114,12 +114,12 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
   <!-- Goals Widget -->
   <section class="max-w-4xl mx-auto px-4 pb-24">
     <h2 class="font-serif text-4xl font-bold mb-8">
-      2026: Things I'm Trying
+      Oct-Dec 2026: Things I'm Trying
     </h2>
     
     <div class="card space-y-3">
       {goals2026.map(goal => (
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 font-mono">
           <span class:list={[
             "text-xl",
             { "opacity-40": goal.completed }
@@ -138,7 +138,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
         </div>
       ))}
       
-      <div class="border-t border-surface pt-4 mt-4">
+      <div class="border-t border-surface pt-4 mt-4 font-mono">
         <p class="text-text-secondary text-sm">
           2025 Goals (Archived)
         </p>
@@ -164,7 +164,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
       ))}
     </div>
     
-    <div class="flex items-center justify-center gap-6 mt-12">
+    <div class="flex items-center justify-center gap-6 mt-12 font-mono">
       <a 
         href="/archive" 
         class="text-accent hover:text-accent-light transition-colors"
