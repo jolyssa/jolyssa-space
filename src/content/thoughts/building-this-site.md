@@ -17,9 +17,9 @@ I want people to know me more intimately, and here will lie all I'm willing to s
 
 ## Why Astro + Bun
 
-I wanted to learn both technologies, so I built something real with them. That's how I learn best—by doing, not by following tutorials in isolation.
+I wanted to learn both technologies, so I built something real with them. That's how I learn best — by doing, not by following tutorials in isolation.
 
-Astro makes sense for this because it's mostly static content. No need for React rendering blog posts. I needed to try Bun because 20-30x faster than Node is insane, and not having to use a package manager as well sealed the deal for me. Safe to say, it was a smooth transition. 
+Astro makes sense for this because it's mostly static content. No need for React rendering blog posts. I needed to try Bun because 20-30x faster than Node is insane, and not having to use a package manager with it sealed the deal for me. Safe to say, it was a smooth transition. 
 
 If you're a React + Node girlie, I highly recommend trying Astro and Bun!
 
@@ -27,7 +27,7 @@ If you're a React + Node girlie, I highly recommend trying Astro and Bun!
 
 Everything is markdown files. No database. No CMS (kinda). Just me writing in my editor and pushing to Git.
 
-That portability matters to me. It has to have little to no friction in order for me to use it. I'll definitely tweak in the future so it truly is effortless, but the way I have it set up will do for now.
+That portability matters to me. It has to have little to no friction in order for me to use it. I'll definitely tweak it in the future so it truly is effortless, but the way I have it set up will do for now.
 
 ## The Vulnerability
 
@@ -39,9 +39,9 @@ The office hours thing is pretty anxiety-inducing for me, but I want real connec
 
 ## What's Next
 
-I'm committing to posting at least once a week. Could be a finished music mix, could be 3 sentences about feeling stuck. Doesn't matter. The practice of showing up is what matters.
+I'm committing to posting at least once a week. Could be a finished music mix, could be three sentences about feeling stuck. Doesn't matter. The practice of showing up is what matters.
 
-If you're reading this and you've ever felt like you can't be contained, like you want to live all the lives at once, like choosing one path means abandoning infinite others—[talk to me](https://cal.com/jolyssa-armstrong-qmqhat/30min). We're figuring this out together.
+If you're reading this and you've ever felt like you can't be contained, like you want to live all the lives at once, like choosing one path means abandoning infinite others, [talk to me](https://cal.com/jolyssa-armstrong-qmqhat/30min). We're figuring this out together.
 
 ---
 
