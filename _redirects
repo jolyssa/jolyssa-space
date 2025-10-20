@@ -1,10 +1,8 @@
 # Redirects for Cloudflare Pages
 
-# CMS admin authentication
+# GitHub OAuth authentication
 /auth /functions/auth 200
-
-# SPA-style routing for admin (if needed)
-/admin/* /admin/index.html 200
+/functions/auth /functions/auth 200
 
 # RSS feed
 /feed.xml /rss.xml 301

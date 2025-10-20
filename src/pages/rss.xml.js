@@ -19,7 +19,7 @@ export async function GET(context) {
   ].sort((a, b) => (b.data.date?.valueOf?.() || 0) - (a.data.date?.valueOf?.() || 0));
 
   return rss({
-    title: "Your Name's Digital Garden",
+    title: "Jolyssa's Digital Garden",
     description: 'Music, making, thoughts, and proof of life.',
     site: context.site,
     items: allPosts.map((post) => ({

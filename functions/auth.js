@@ -37,23 +37,32 @@ export async function onRequestGet(context) {
       const tokenData = await tokenResponse.json();
       
       if (tokenData.access_token) {
-        // Return success page that posts message to parent window
+        // Return success page that stores token and redirects
         return new Response(`
           <!DOCTYPE html>
           <html>
             <head>
               <title>Authentication Success</title>
+              <style>
+                body { 
+                  background: #2D2D2D; 
+                  color: #E5E5E5; 
+                  font-family: Arial, sans-serif;
+                  text-align: center;
+                  padding: 4rem;
+                }
+              </style>
             </head>
             <body>
               <h1>Authentication Successful!</h1>
-              <p>You can close this window.</p>
+              <p>Redirecting to dashboard...</p>
               <script>
-                window.opener.postMessage({
-                  type: 'authorization:github:success',
-                  token: '${tokenData.access_token}',
-                  provider: 'github'
-                }, window.location.origin);
-                window.close();
+                // Store the token and redirect
+                localStorage.setItem('github_token', '${tokenData.access_token}');
+                localStorage.removeItem('oauth_state');
+                
+                // Clear URL parameters and redirect to admin
+                window.location.href = '/admin';
               </script>
             </body>
           </html>
