@@ -1,6 +1,6 @@
 ---
 title: "TEMPLATE - Project Name"
-date: 2024-01-01
+date: 2025-01-20
 description: "A brief description of what this project does and why you built it."
 tech: ["JavaScript", "React", "Node.js", "MongoDB"]
 liveUrl: "https://your-project.com"

@@ -1,6 +1,6 @@
 ---
 title: "TEMPLATE - Music Post Title"
-date: 2024-01-01
+date: 2025-01-20
 type: mix
 duration: "1hr 30min"
 soundcloudUrl: "https://soundcloud.com/your-track"

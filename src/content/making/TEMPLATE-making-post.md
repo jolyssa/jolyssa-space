@@ -1,6 +1,6 @@
 ---
 title: "TEMPLATE - Making Project Title"
-date: 2024-01-01
+date: 2025-01-15
 type: diy
 status: completed
 materials: ["wood", "screws", "sandpaper", "stain"]

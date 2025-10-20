@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Get all posts
-const music = await getCollection('music');
-const making = await getCollection('making');
-const thoughts = await getCollection('thoughts');
-const consuming = await getCollection('consuming');
-const work = await getCollection('work');
+// Get all posts (excluding templates)
+const music = await getCollection('music', ({ data }) => !data.isTemplate);
+const making = await getCollection('making', ({ data }) => !data.isTemplate);
+const thoughts = await getCollection('thoughts', ({ data }) => !data.isTemplate);
+const consuming = await getCollection('consuming', ({ data }) => !data.isTemplate);
+const work = await getCollection('work', ({ data }) => !data.isTemplate);
 
 const allPosts = [
   ...music.map(p => ({ ...p, collection: 'music' })),

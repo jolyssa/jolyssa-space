@@ -1,7 +1,7 @@
 ---
 title: "TEMPLATE - Thing You Consumed"
 type: movie
-date: 2024-01-01
+date: 2025-01-15
 rating: 4
 status: completed
 blurb: "A short one-sentence description for the list view."

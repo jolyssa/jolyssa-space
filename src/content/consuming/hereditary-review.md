@@ -1,7 +1,7 @@
 ---
 title: "Hereditary"
 type: "movie"
-date: 2024-12-15
+date: 2025-01-15
 rating: 5
 status: "completed"
 blurb: "Can't stop thinking about the ending. The way it builds dread without jump scares is masterful."
