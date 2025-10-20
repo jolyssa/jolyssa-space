@@ -37,12 +37,12 @@ const allContent = [
 
 const recentItems = allContent.slice(0, 6);
 
-const goals2026 = [
-  { text: 'Build something with Svelte', completed: false },
-  { text: 'Land a kickflip', completed: false },
-  { text: 'Finish 5 DJ mixes', completed: false, progress: '2/5' },
-  { text: 'Make something with wood', completed: false },
-  { text: 'Read 12 books', completed: false, progress: '3/12' },
+const goals2025 = [
+  { text: 'Make two new remixes', completed: false },
+  { text: 'Build an app and have it on the app store', completed: false },
+  { text: 'String together a couple of sentences in Korean', completed: false },
+  { text: 'Finish 2 DJ mixes and post them on SoundCloud + Youtube', completed: false },
+  { text: 'Read 3 books', completed: false, progress: '1/3' },
   { text: 'Launch this website', completed: true },
   { text: 'Finish clay incense holder', completed: true },
 ];
@@ -63,7 +63,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
       
       <div class="space-y-6 text-lg md:text-xl font-mono leading-relaxed text-text-secondary-light dark:text-text-secondary max-w-2xl mx-auto">
         <p>
-          i can't be contained, yet here I am trying to contain myself. 
+          i can't be contained, yet here i am trying to contain myself. 
           i'm contradictory. i love the process. i love the human experience.
         </p>
         
@@ -114,11 +114,11 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
   <!-- Goals Widget -->
   <section class="max-w-4xl mx-auto px-4 pb-24">
     <h2 class="font-serif text-4xl font-bold mb-8 text-text-primary-light dark:text-text-primary">
-      Oct-Dec 2026: Things I'm Trying
+      Oct-Dec 2025: Things I'm Trying
     </h2>
     
     <div class="card space-y-3">
-      {goals2026.map(goal => (
+      {goals2025.map(goal => (
         <div class="flex items-center gap-3 font-mono">
           <span class:list={[
             "text-xl",
