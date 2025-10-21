@@ -29,11 +29,21 @@ const allPosts = [
 <script define:vars={{ allPosts }}>
   const randomBtn = document.getElementById('random-post-btn');
   
-  randomBtn?.addEventListener('click', () => {
+  const handleRandomPost = () => {
     if (allPosts.length > 0) {
       const randomIndex = Math.floor(Math.random() * allPosts.length);
       const randomPost = allPosts[randomIndex];
+      console.log('Navigating to random post:', randomPost.collection, randomPost.slug);
       window.location.href = `/${randomPost.collection}/${randomPost.slug}/`;
+    } else {
+      console.error('No posts available for random selection');
     }
+  };
+  
+  // Add both click and touchend events for mobile compatibility
+  randomBtn?.addEventListener('click', handleRandomPost);
+  randomBtn?.addEventListener('touchend', (e) => {
+    e.preventDefault(); // Prevent double-firing on mobile
+    handleRandomPost();
   });
 </script>

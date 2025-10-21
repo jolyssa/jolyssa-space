@@ -116,7 +116,7 @@ export async function onRequestGet(context) {
       status: 302,
       headers: {
         'Location': '/admin',
-        'Set-Cookie': `admin_session=${sessionToken}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
+        'Set-Cookie': `admin_session=${sessionToken}; Domain=jolyssa.space; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=604800`,
       },
     });
 

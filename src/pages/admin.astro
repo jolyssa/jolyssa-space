@@ -170,53 +170,52 @@
     }
 
     async function checkAuth() {
-      const token = localStorage.getItem('github_token');
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
       console.log('Checking auth...');
-      console.log('Token found:', token ? 'Yes' : 'No');
       console.log('Environment:', isLocalhost ? 'localhost' : 'production');
       
-      if (token) {
-        // Mock auth for localhost
-        if (isLocalhost && token === 'mock-token-for-localhost') {
+      // For localhost, use localStorage (legacy)
+      if (isLocalhost) {
+        const token = localStorage.getItem('github_token');
+        if (token === 'mock-token-for-localhost') {
           const mockUser = { login: 'jolyssa', name: 'Joji', avatar_url: '' };
           showDashboard(mockUser);
           return;
         }
+      }
+      
+      // For production, check session cookie with mobile delay
+      setTimeout(() => {
+        const cookies = document.cookie.split(';');
+        const sessionCookie = cookies.find(c => c.trim().startsWith('admin_session='));
         
-        // Real GitHub API call for production
-        try {
-          const response = await fetch('https://api.github.com/user', {
-            headers: {
-              'Authorization': `token ${token}`,
-              'Accept': 'application/vnd.github.v3+json'
-            }
-          });
-          
-          if (response.ok) {
-            const user = await response.json();
-            // Only allow specific users (you can add more usernames if needed)
-            const allowedUsers = ['jolyssa', 'JojoW']; // Add your GitHub username(s)
+        console.log('All cookies:', document.cookie);
+        console.log('Session cookie found:', !!sessionCookie);
+        
+        if (sessionCookie) {
+          try {
+            const token = sessionCookie.split('=')[1];
+            const sessionData = JSON.parse(atob(token));
             
-            if (allowedUsers.includes(user.login)) {
-              showDashboard(user);
+            console.log('Session data:', sessionData);
+            
+            // Check if session is still valid
+            if (sessionData.expires > Date.now()) {
+              showDashboard(sessionData);
             } else {
-              localStorage.removeItem('github_token');
-              showError(`Access denied. This admin is for joji only.`);
+              console.log('Session expired');
               showLogin();
             }
-          } else {
-            localStorage.removeItem('github_token');
+          } catch (error) {
+            console.error('Session parse error:', error);
             showLogin();
           }
-        } catch (error) {
-          localStorage.removeItem('github_token');
+        } else {
+          console.log('No session cookie found');
           showLogin();
         }
-      } else {
-        showLogin();
-      }
+      }, 100); // 100ms delay for mobile browsers to process cookie
     }
 
     function showLogin() {
@@ -262,8 +261,13 @@
     }
 
     function logout() {
+      // Clear localStorage (legacy)
       localStorage.removeItem('github_token');
       localStorage.removeItem('oauth_state');
+      
+      // Clear session cookie
+      document.cookie = 'admin_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      
       showLogin();
     }
 
