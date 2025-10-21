@@ -1,20 +1,12 @@
 // Cloudflare Pages Function for GitHub OAuth
-// IMPORTANT: This file must be exactly in /functions/auth.js for Cloudflare Pages
-
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const code = url.searchParams.get('code');
   const state = url.searchParams.get('state');
   const error = url.searchParams.get('error');
 
-  // Debug logging
-  console.log('[AUTH] Function called');
-  console.log('[AUTH] Code present:', !!code);
-  console.log('[AUTH] Environment check:', !!context.env.GITHUB_CLIENT_ID);
-
   // Check environment variables
   if (!context.env.GITHUB_CLIENT_ID || !context.env.GITHUB_CLIENT_SECRET) {
-    console.error('[AUTH] Missing environment variables');
     return new Response(null, {
       status: 302,
       headers: { 'Location': '/?error=missing_env_vars' },
@@ -23,139 +15,121 @@ export async function onRequestGet(context) {
 
   // Handle OAuth errors from GitHub
   if (error) {
-    console.error('[AUTH] OAuth error from GitHub:', error);
     return new Response(null, {
       status: 302,
       headers: { 'Location': `/?error=${error}` },
     });
   }
 
-  // Handle OAuth callback (when GitHub sends back the authorization code)
-  if (code) {
-    console.log('[AUTH] Processing OAuth callback');
-    
-    try {
-      // Step 1: Exchange authorization code for access token
-      const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          client_id: context.env.GITHUB_CLIENT_ID,
-          client_secret: context.env.GITHUB_CLIENT_SECRET,
-          code: code,
-        }),
-      });
+  // Verify authorization code exists
+  if (!code) {
+    return new Response(null, {
+      status: 302,
+      headers: { 'Location': '/?error=no_code' },
+    });
+  }
 
-      if (!tokenResponse.ok) {
-        throw new Error(`Token request failed: ${tokenResponse.status}`);
-      }
+  try {
+    // Exchange authorization code for access token
+    const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        client_id: context.env.GITHUB_CLIENT_ID,
+        client_secret: context.env.GITHUB_CLIENT_SECRET,
+        code: code,
+      }),
+    });
 
-      const tokenData = await tokenResponse.json();
-      
-      if (tokenData.error) {
-        throw new Error(`GitHub error: ${tokenData.error}`);
-      }
-
-      if (!tokenData.access_token) {
-        throw new Error('No access token received');
-      }
-
-      console.log('[AUTH] Token received, verifying user');
-      console.log('[AUTH] Token scope:', tokenData.scope);
-
-      // Step 2: Get user info
-      const userResponse = await fetch('https://api.github.com/user', {
-        headers: {
-          'Authorization': `token ${tokenData.access_token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'jolyssa-space-admin',
-        },
-      });
-
-      console.log('[AUTH] User API response status:', userResponse.status);
-      
-      if (!userResponse.ok) {
-        const errorText = await userResponse.text();
-        console.error('[AUTH] GitHub API error response:', errorText);
-        throw new Error(`User fetch failed: ${userResponse.status} - ${errorText}`);
-      }
-
-      const userData = await userResponse.json();
-      console.log('[AUTH] User verified:', userData.login);
-
-      // Step 3: Check authorization
-      const AUTHORIZED_USERS = ['jolyssa', 'JojoW']; // UPDATE THIS WITH YOUR GITHUB USERNAME
-      
-      if (!AUTHORIZED_USERS.includes(userData.login)) {
-        console.error('[AUTH] Unauthorized user:', userData.login);
-        return new Response(null, {
-          status: 302,
-          headers: { 'Location': '/?error=unauthorized' },
-        });
-      }
-
-      console.log('[AUTH] User authorized, redirecting to admin');
-
-      // Step 4: Create session and redirect
-      return new Response(`
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login Successful</title>
-  <style>
-    body {
-      background: #2D2D2D;
-      color: #E5E5E5;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 4rem;
-    }
-  </style>
-</head>
-<body>
-  <h1>✅ Login Successful!</h1>
-  <p>Redirecting to admin dashboard...</p>
-  <script>
-    console.log('[AUTH] Setting token and redirecting');
-    localStorage.setItem('github_token', '${tokenData.access_token}');
-    localStorage.removeItem('oauth_state');
-    setTimeout(() => {
-      window.location.replace('/admin');
-    }, 1000);
-  </script>
-</body>
-</html>
-      `, {
-        headers: { 'Content-Type': 'text/html' },
-      });
-
-    } catch (error) {
-      console.error('[AUTH] OAuth callback error:', error);
+    if (!tokenResponse.ok) {
       return new Response(null, {
         status: 302,
-        headers: { 'Location': `/?error=callback_failed` },
+        headers: { 'Location': '/?error=token_request_failed' },
       });
     }
-  } // End of if (code) block
 
-  // No code parameter - redirect to GitHub OAuth
-  console.log('[AUTH] Initiating OAuth flow');
-  const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
-  githubAuthUrl.searchParams.set('client_id', context.env.GITHUB_CLIENT_ID);
-  githubAuthUrl.searchParams.set('redirect_uri', `${url.origin}/auth`);
-  githubAuthUrl.searchParams.set('scope', 'user');
-  githubAuthUrl.searchParams.set('state', state || 'admin');
-  
-  return new Response(null, {
-    status: 302,
-    headers: { 'Location': githubAuthUrl.toString() },
-  });
+    const tokenData = await tokenResponse.json();
+    
+    if (tokenData.error) {
+      return new Response(null, {
+        status: 302,
+        headers: { 'Location': `/?error=${tokenData.error}` },
+      });
+    }
+
+    const accessToken = tokenData.access_token;
+    
+    if (!accessToken) {
+      return new Response(null, {
+        status: 302,
+        headers: { 'Location': '/?error=no_access_token' },
+      });
+    }
+
+    // Fetch user data from GitHub
+    const userResponse = await fetch('https://api.github.com/user', {
+      headers: {
+        'Authorization': `token ${accessToken}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'jolyssa-space-oauth-app',
+      },
+    });
+
+    if (!userResponse.ok) {
+      return new Response(null, {
+        status: 302,
+        headers: { 'Location': '/?error=user_fetch_failed' },
+      });
+    }
+
+    const userData = await userResponse.json();
+
+    // Verify user is authorized admin
+    const AUTHORIZED_USERS = ['jolyssa']; // Replace with your GitHub username if different
+    
+    if (!AUTHORIZED_USERS.includes(userData.login)) {
+      return new Response(null, {
+        status: 302,
+        headers: { 'Location': '/?error=unauthorized' },
+      });
+    }
+
+    // Create secure session token
+    const sessionData = {
+      user: userData.login,
+      name: userData.name || userData.login,
+      avatar: userData.avatar_url,
+      email: userData.email,
+      created: Date.now(),
+      expires: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
+    };
+
+    // Base64 encode session data
+    // Note: For enhanced security, consider using proper JWT library with signing
+    const sessionToken = btoa(JSON.stringify(sessionData));
+
+    // Set secure session cookie and redirect to admin dashboard
+    return new Response(null, {
+      status: 302,
+      headers: {
+        'Location': '/admin',
+        'Set-Cookie': `admin_session=${sessionToken}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
+      },
+    });
+
+  } catch (error) {
+    // Catch-all for unexpected errors
+    return new Response(null, {
+      status: 302,
+      headers: { 'Location': '/?error=server_error' },
+    });
+  }
 }
 
-// Also handle POST requests (some OAuth flows might use POST)
+// Handle POST requests (some OAuth flows may use POST)
 export async function onRequestPost(context) {
   return onRequestGet(context);
 }
