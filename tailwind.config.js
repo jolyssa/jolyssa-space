@@ -29,6 +29,7 @@ export default {
           DEFAULT: '#4791B1',
           light: '#5BB3D9',
         },
+        bleu: '#5bb3d9',
       },
       fontFamily: {
         serif: ['Libre Baskerville', 'serif'],
