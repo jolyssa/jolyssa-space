@@ -21,12 +21,68 @@ const title = `${post.data.month} ${post.data.year}`;
 >
   <article class="max-w-4xl mx-auto px-4 py-24">
     <header class="text-center mb-12">
-      <h1 class="font-serif text-5xl font-bold mb-3">{title}</h1>
-      <div class="text-text-secondary">
+      <h1 class="font-serif text-5xl font-bold mb-3 text-text-primary-light dark:text-text-primary">{title}</h1>
+      <div class="text-text-secondary-light dark:text-text-secondary">
         <span>{post.data.workoutDays}/{post.data.totalDays} workout days</span>
         {post.data.activeDays && (<span> • {post.data.activeDays} active days</span>)}
+        <span> • {Math.round((post.data.workoutDays / post.data.totalDays) * 100)}% completion</span>
       </div>
     </header>
+
+    <!-- Movement Stats -->
+    <div class="max-w-3xl mx-auto mb-12">
+      <!-- Workout Types -->
+      {post.data.types && post.data.types.length > 0 && (
+        <div class="mb-8">
+          <h2 class="font-serif text-2xl font-bold mb-4 text-text-primary-light dark:text-text-primary">Workout Types</h2>
+          <div class="flex gap-2 flex-wrap">
+            {post.data.types.map(type => (
+              <span class="px-3 py-1 bg-surface-light dark:bg-surface rounded-full text-sm font-mono text-text-secondary-light dark:text-text-secondary">
+                {type}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Notes -->
+      {post.data.notes && (
+        <div class="mb-8">
+          <h2 class="font-serif text-2xl font-bold mb-4 text-text-primary-light dark:text-text-primary">Notes</h2>
+          <p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">{post.data.notes}</p>
+        </div>
+      )}
+
+      <!-- What Worked -->
+      {post.data.whatWorked && (
+        <div class="mb-8">
+          <h2 class="font-serif text-2xl font-bold mb-4 text-green-600 dark:text-green-400">
+            What Worked ✓
+          </h2>
+          <p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">{post.data.whatWorked}</p>
+        </div>
+      )}
+
+      <!-- What Didn't Work -->
+      {post.data.whatDidnt && (
+        <div class="mb-8">
+          <h2 class="font-serif text-2xl font-bold mb-4 text-red-600 dark:text-red-400">
+            What Didn't Work ✗
+          </h2>
+          <p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">{post.data.whatDidnt}</p>
+        </div>
+      )}
+
+      <!-- Improvements -->
+      {post.data.improvements && (
+        <div class="mb-8">
+          <h2 class="font-serif text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">
+            Improvements →
+          </h2>
+          <p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">{post.data.improvements}</p>
+        </div>
+      )}
+    </div>
 
     <div class="prose-custom">
       <Content />

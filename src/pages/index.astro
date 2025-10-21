@@ -37,7 +37,7 @@ const allContent = [
 
 const recentItems = allContent.slice(0, 6);
 
-export const goals2025 = [
+const goals2025 = [
   { text: 'Make two new remixes', completed: false },
   { text: 'Build an app and have it on the app store', completed: false },
   { text: 'String together a couple of sentences in Korean', completed: false },
@@ -46,6 +46,16 @@ export const goals2025 = [
   { text: 'Launch this website', completed: true },
   { text: 'Finish clay incense holder', completed: true },
 ];
+
+// Sort goals: incomplete first, completed last
+const sortedGoals2025 = goals2025.sort((a, b) => {
+  if (a.completed === b.completed) return 0;
+  return a.completed ? 1 : -1;
+});
+
+// Calculate progress dynamically
+const completedCount = goals2025.filter(goal => goal.completed).length;
+const totalCount = goals2025.length;
 
 const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/yourname';
 ---
@@ -118,7 +128,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
     </h2>
     
     <div class="card space-y-3">
-      {goals2025.map(goal => (
+      {sortedGoals2025.map(goal => (
         <div class="flex items-center gap-3 font-mono">
           <span class:list={[
             "text-xl",
@@ -143,7 +153,7 @@ const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/your
           2025 Goals (Archived)
         </p>
         <p class="text-text-secondary text-sm">
-          Completed: 2/7
+          Completed: {completedCount}/{totalCount}
         </p>
         <a href="/goals" class="text-accent hover:text-accent-light text-sm">
           View all →

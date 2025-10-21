@@ -32,12 +32,20 @@ const featured = sorted.filter(item => item.data.featured);
     )}
 
     <section>
-      <h2 class="font-serif text-2xl font-bold mb-6">All Thoughts</h2>
-      <div class="space-y-8">
-        {sorted.map(item => (
-          <Card item={item} collection="thoughts" />
-        ))}
-      </div>
+      <h2 class="font-serif text-2xl font-bold mb-6 text-text-primary-light dark:text-text-primary">All Thoughts</h2>
+      {sorted.length > 0 ? (
+        <div class="space-y-8">
+          {sorted.map(item => (
+            <Card item={item} collection="thoughts" />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-text-secondary-light dark:text-text-secondary font-mono">
+            No entries at the moment.
+          </p>
+        </div>
+      )}
     </section>
   </div>
 </Layout>

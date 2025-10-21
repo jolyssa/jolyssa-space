@@ -25,12 +25,20 @@ const normalized = all.map(item => {
     </header>
 
     <section>
-      <h2 class="font-serif text-2xl font-bold mb-6">All Months</h2>
-      <div class="space-y-8">
-        {normalized.map(item => (
-          <Card item={item} collection="movement" />
-        ))}
-      </div>
+      <h2 class="font-serif text-2xl font-bold mb-6 text-text-primary-light dark:text-text-primary">All Months</h2>
+      {normalized.length > 0 ? (
+        <div class="space-y-8">
+          {normalized.map(item => (
+            <Card item={item} collection="movement" />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-text-secondary-light dark:text-text-secondary font-mono">
+            No entries at the moment.
+          </p>
+        </div>
+      )}
     </section>
   </div>
 </Layout>

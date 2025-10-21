@@ -34,12 +34,20 @@ const featured = sortedMusic.filter(item => item.data.featured);
     )}
     
     <section>
-      <h2 class="font-serif text-2xl font-bold mb-6">All Music</h2>
-      <div class="space-y-8">
-        {sortedMusic.map(item => (
-          <Card item={item} collection="music" />
-        ))}
-      </div>
+      <h2 class="font-serif text-2xl font-bold mb-6 text-text-primary-light dark:text-text-primary">All Music</h2>
+      {sortedMusic.length > 0 ? (
+        <div class="space-y-8">
+          {sortedMusic.map(item => (
+            <Card item={item} collection="music" />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-text-secondary-light dark:text-text-secondary font-mono">
+            No entries at the moment.
+          </p>
+        </div>
+      )}
     </section>
   </div>
 </Layout>

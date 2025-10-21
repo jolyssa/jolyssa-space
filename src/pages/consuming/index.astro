@@ -20,12 +20,20 @@ const sorted = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     </header>
 
     <section>
-      <h2 class="font-serif text-2xl font-bold mb-6">All Entries</h2>
-      <div class="space-y-8">
-        {sorted.map(item => (
-          <Card item={item} collection="consuming" />
-        ))}
-      </div>
+      <h2 class="font-serif text-2xl font-bold mb-6 text-text-primary-light dark:text-text-primary">All Entries</h2>
+      {sorted.length > 0 ? (
+        <div class="space-y-8">
+          {sorted.map(item => (
+            <Card item={item} collection="consuming" />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-text-secondary-light dark:text-text-secondary font-mono">
+            No entries at the moment.
+          </p>
+        </div>
+      )}
     </section>
   </div>
 </Layout>
