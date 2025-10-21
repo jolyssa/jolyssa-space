@@ -9,7 +9,7 @@ featured: true
 
 # Building This Site
 
-I've been wanting to build a site that encompasses all of me for a while. To document certain things, I've used [Notion](http://notion.so/) in the past and more recently shifted over to documenting everything on [Obsidian](https://obsidian.md/) since I liked the idea of having all my thoughts and projects offline that I could access from anywhere. 
+I've been wanting to build a site that encompasses all of me for a while. To document certain things, I've used <a href="http://notion.so/" target="_blank" rel="noopener noreferrer">Notion</a> in the past and more recently shifted over to documenting everything on <a href="https://obsidian.md/" target="_blank" rel="noopener noreferrer">Obsidian</a> since I liked the idea of having all my thoughts and projects offline that I could access from anywhere. 
 
 Using Obsidian has actually been a blast and I've had a lot of fun with the community plugins, but now the setup will be something that combines my offline, self-contained brain dump with a site that is living, breathing, and shareable to my community instead. 
 
