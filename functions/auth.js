@@ -140,8 +140,8 @@ export async function onRequestGet(context) {
   console.log('[AUTH] Initiating OAuth flow');
   const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
   githubAuthUrl.searchParams.set('client_id', context.env.GITHUB_CLIENT_ID);
-  githubAuthUrl.searchParams.set('redirect_uri', `${url.origin}/functions/auth`);
-  githubAuthUrl.searchParams.set('scope', 'repo,user');
+  githubAuthUrl.searchParams.set('redirect_uri', `${url.origin}/auth`);
+  githubAuthUrl.searchParams.set('scope', 'user:email');
   githubAuthUrl.searchParams.set('state', state || 'admin');
   
   return new Response(null, {
