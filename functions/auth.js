@@ -64,18 +64,23 @@ export async function onRequestGet(context) {
       }
 
       console.log('[AUTH] Token received, verifying user');
+      console.log('[AUTH] Token scope:', tokenData.scope);
 
       // Step 2: Get user info
       const userResponse = await fetch('https://api.github.com/user', {
         headers: {
-          'Authorization': `Bearer ${tokenData.access_token}`,
-          'Accept': 'application/vnd.github+json',
-          'X-GitHub-Api-Version': '2022-11-28',
+          'Authorization': `token ${tokenData.access_token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'jolyssa-space-admin',
         },
       });
 
+      console.log('[AUTH] User API response status:', userResponse.status);
+      
       if (!userResponse.ok) {
-        throw new Error(`User fetch failed: ${userResponse.status}`);
+        const errorText = await userResponse.text();
+        console.error('[AUTH] GitHub API error response:', errorText);
+        throw new Error(`User fetch failed: ${userResponse.status} - ${errorText}`);
       }
 
       const userData = await userResponse.json();
@@ -141,7 +146,7 @@ export async function onRequestGet(context) {
   const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
   githubAuthUrl.searchParams.set('client_id', context.env.GITHUB_CLIENT_ID);
   githubAuthUrl.searchParams.set('redirect_uri', `${url.origin}/auth`);
-  githubAuthUrl.searchParams.set('scope', 'user:email');
+  githubAuthUrl.searchParams.set('scope', 'user');
   githubAuthUrl.searchParams.set('state', state || 'admin');
   
   return new Response(null, {
