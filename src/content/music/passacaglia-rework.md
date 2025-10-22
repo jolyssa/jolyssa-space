@@ -1,6 +1,6 @@
 ---
 title: "Passacaglia - Handel/Halvorsen | Remix/Rework"
-date: 2025-10-22
+date: 2025-10-23
 type: cover
 duration: "4 minutes 36 seconds"
 youtubeUrl: "https://www.youtube.com/watch?v=3lCIEstcgHk"
