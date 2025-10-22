@@ -6,10 +6,11 @@ const music = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
-    type: z.enum(['mix', 'remix', 'original', 'production-note', 'review', 'profile']),
+    type: z.enum(['mix', 'remix', 'original', 'production-note', 'review', 'profile', 'cover']),
     duration: z.string().optional(), // "1hr 23min"
     soundcloudUrl: z.string().optional(),
     spotifyUrl: z.string().optional(),
+    youtubeUrl: z.string().optional(),
     tags: z.array(z.string()),
     coverImage: z.string().optional(),
     featured: z.boolean().default(false),

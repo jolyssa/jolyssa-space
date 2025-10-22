@@ -3,7 +3,7 @@ title: "Jimi Hendrix: Are You Experienced? - A Revolution in Six Strings
 "
 date: 2025-10-22
 type: review
-duration: 40 mins 37 seconds (vinyl)
+duration: 40 minutes 37 seconds (vinyl)
 spotifyUrl: "https://open.spotify.com/album/7rSZXXHHvIhF4yUFdaOCy9?si=sThGKCMiTYWKawSFdmwlcw"
 tags: ["pyschedelic", "transformative", "music", "review","music review", "essay"]
 coverImage: "/images/jimi.webp"
@@ -59,7 +59,7 @@ After multiple listens, my top favorites have to be:
 - "Manic Depression" - The groove in this one absolutely rocks. The waltz-time signature (unusual for rock) gives it a spinning, dizzy feeling that perfectly matches the lyrical theme. When Hendrix says he's "knowin' what I want to do," his guitar speaks of both torment and freedom.
     
 
-"The Wind Cries Mary" shows Hendrix's softer side. It's reminiscent of songs from "Electric Ladyland" and feels like it could fit right in there. It's like coming down from a trip, when the world starts making sense again but still has a gentle glow around the edges.
+- "The Wind Cries Mary" shows Hendrix's softer side. It's reminiscent of songs from "Electric Ladyland" and feels like it could fit right in there. It's like coming down from a trip, when the world starts making sense again but still has a gentle glow around the edges.
 
 ## Personal Connection
 
