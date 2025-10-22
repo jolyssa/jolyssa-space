@@ -9,26 +9,34 @@ export async function GET(context) {
   const consuming = await getCollection('consuming', ({ data }) => !data.isTemplate);
   const work = await getCollection('work', ({ data }) => !data.isTemplate);
 
-  // Combine and sort by date
+  // Combine and sort by date (newest first)
   const allPosts = [
     ...music.map(post => ({ ...post, collection: 'music' })),
     ...making.map(post => ({ ...post, collection: 'making' })),
     ...thoughts.map(post => ({ ...post, collection: 'thoughts' })),
     ...consuming.map(post => ({ ...post, collection: 'consuming' })),
     ...work.map(post => ({ ...post, collection: 'work' })),
-  ].sort((a, b) => (b.data.date?.valueOf?.() || 0) - (a.data.date?.valueOf?.() || 0));
+  ]
+  .filter(post => post.data.date) // Only include posts with dates
+  .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+
+  const siteUrl = context.site || 'https://jolyssa.space';
 
   return rss({
     title: "Jolyssa's Digital Garden",
     description: 'Music, making, thoughts, and proof of life.',
-    site: context.site,
+    site: siteUrl,
     items: allPosts.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.date,
-      description: post.data.excerpt || post.data.blurb || post.data.description || '',
+      title: post.data.title || 'Untitled',
+      pubDate: new Date(post.data.date),
+      description: post.data.excerpt || post.data.blurb || post.data.description || post.data.notes || 'No description available',
       link: `/${post.collection}/${post.slug}/`,
+      guid: `${siteUrl}/${post.collection}/${post.slug}/`,
       categories: post.data.tags || [],
+      author: 'jolyssa@jolyssa.space (Jolyssa)',
     })),
-    customData: `<language>en-us</language>`,
+    customData: `<language>en-us</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <generator>Astro RSS</generator>`,
   });
 }

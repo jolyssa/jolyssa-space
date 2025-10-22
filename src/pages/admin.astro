@@ -176,11 +176,21 @@
       });
     }
 
+    let authRetryCount = 0;
+    let isCheckingAuth = false;
+    
     async function checkAuth() {
+      if (isCheckingAuth) {
+        console.log('[Admin Auth] Already checking auth, skipping...');
+        return;
+      }
+      
+      isCheckingAuth = true;
+      
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
-      console.log('Checking auth...');
-      console.log('Environment:', isLocalhost ? 'localhost' : 'production');
+      console.log('[Admin Auth] Checking auth, attempt:', authRetryCount + 1);
+      console.log('[Admin Auth] Environment:', isLocalhost ? 'localhost' : 'production');
       
       // For localhost, use localStorage (legacy)
       if (isLocalhost) {
@@ -188,41 +198,73 @@
         if (token === 'mock-token-for-localhost') {
           const mockUser = { login: 'jolyssa', name: 'Joji', avatar_url: '' };
           showDashboard(mockUser);
+          isCheckingAuth = false;
           return;
         }
       }
       
-      // For production, check session cookie with mobile delay
-      setTimeout(() => {
+      // For production, check session cookie with mobile retry logic
+      const checkCookie = () => {
         const cookies = document.cookie.split(';');
         const sessionCookie = cookies.find(c => c.trim().startsWith('admin_session='));
         
-        console.log('All cookies:', document.cookie);
-        console.log('Session cookie found:', !!sessionCookie);
+        console.log('[Admin Auth] All cookies:', document.cookie);
+        console.log('[Admin Auth] Session cookie found:', !!sessionCookie);
+        console.log('[Admin Auth] User agent contains mobile:', /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent));
         
         if (sessionCookie) {
           try {
             const token = sessionCookie.split('=')[1];
             const sessionData = JSON.parse(atob(token));
             
-            console.log('Session data:', sessionData);
+            console.log('[Admin Auth] Session data:', {
+              user: sessionData.user,
+              created: new Date(sessionData.created).toISOString(),
+              expires: new Date(sessionData.expires).toISOString(),
+              isValid: sessionData.expires > Date.now()
+            });
             
             // Check if session is still valid
             if (sessionData.expires > Date.now()) {
+              console.log('[Admin Auth] Valid session found, showing dashboard');
               showDashboard(sessionData);
+              isCheckingAuth = false;
+              return;
             } else {
-              console.log('Session expired');
+              console.log('[Admin Auth] Session expired');
               showLogin();
+              isCheckingAuth = false;
+              return;
             }
           } catch (error) {
-            console.error('Session parse error:', error);
+            console.error('[Admin Auth] Session parse error:', error);
             showLogin();
+            isCheckingAuth = false;
+            return;
           }
         } else {
-          console.log('No session cookie found');
-          showLogin();
+          // No session cookie found - retry logic for mobile
+          authRetryCount++;
+          
+          if (authRetryCount < 5) {
+            console.log(`[Admin Auth] No session cookie found, retrying in ${authRetryCount * 200}ms (attempt ${authRetryCount}/5)`);
+            
+            setTimeout(() => {
+              isCheckingAuth = false;
+              checkAuth();
+            }, authRetryCount * 200); // Increasing delay: 200ms, 400ms, 600ms, 800ms
+            
+          } else {
+            console.log('[Admin Auth] No session after 5 retries, redirecting to login');
+            showLogin();
+            isCheckingAuth = false;
+          }
         }
-      }, 100); // 100ms delay for mobile browsers to process cookie
+      };
+      
+      // Initial delay for mobile cookie propagation
+      const initialDelay = authRetryCount === 0 ? 100 : 0;
+      setTimeout(checkCookie, initialDelay);
     }
 
     function showLogin() {

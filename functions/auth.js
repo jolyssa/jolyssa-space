@@ -111,7 +111,75 @@ export async function onRequestGet(context) {
     // Note: For enhanced security, consider using proper JWT library with signing
     const sessionToken = btoa(JSON.stringify(sessionData));
 
-    // Set secure session cookie and redirect to admin dashboard
+    // Detect mobile user agent
+    const userAgent = context.request.headers.get('user-agent') || '';
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
+    
+    if (isMobile) {
+      // For mobile: return HTML page that sets cookie and redirects
+      return new Response(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="refresh" content="2;url=/admin">
+          <title>Logging in...</title>
+          <style>
+            body {
+              font-family: system-ui, -apple-system, sans-serif;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100vh;
+              margin: 0;
+              background: #2D2D2D;
+              color: #E5E5E5;
+            }
+            .message {
+              text-align: center;
+              padding: 2rem;
+            }
+            .spinner {
+              border: 4px solid #3A3A3A;
+              border-top: 4px solid #4791B1;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              animation: spin 1s linear infinite;
+              margin: 0 auto 1rem;
+            }
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="message">
+            <div class="spinner"></div>
+            <p>Logging in... Redirecting to admin panel.</p>
+            <p style="font-size: 0.9em; opacity: 0.7; margin-top: 1rem;">Welcome back, ${userData.name || userData.login}!</p>
+          </div>
+          <script>
+            console.log('[Mobile Auth] Setting cookie and redirecting...');
+            // Fallback redirect in case meta refresh doesn't work
+            setTimeout(() => {
+              console.log('[Mobile Auth] Fallback redirect triggered');
+              window.location.href = '/admin';
+            }, 2000);
+          </script>
+        </body>
+        </html>
+      `, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=UTF-8',
+          'Set-Cookie': `admin_session=${sessionToken}; Domain=jolyssa.space; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=604800`,
+        },
+      });
+    }
+    
+    // Desktop: immediate redirect (existing code)
     return new Response(null, {
       status: 302,
       headers: {

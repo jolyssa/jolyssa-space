@@ -18,9 +18,11 @@ const allPosts = [
 ---
 
 <button 
+  type="button"
   id="random-post-btn"
-  class="nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent font-mono block w-full text-left py-2 rounded hover:bg-surface-light dark:hover:bg-surface md:w-auto md:py-0 md:hover:bg-transparent"
+  class="nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent font-mono block w-full text-left py-2 rounded hover:bg-surface-light dark:hover:bg-surface md:w-auto md:py-0 md:hover:bg-transparent cursor-pointer select-none"
   title="Random post"
+  aria-label="Go to random post"
 >
   <span class="md:hidden">🎲 Random post</span>
   <span class="hidden md:inline">🎲</span>
@@ -29,21 +31,79 @@ const allPosts = [
 <script define:vars={{ allPosts }}>
   const randomBtn = document.getElementById('random-post-btn');
   
-  const handleRandomPost = () => {
-    if (allPosts.length > 0) {
-      const randomIndex = Math.floor(Math.random() * allPosts.length);
-      const randomPost = allPosts[randomIndex];
-      console.log('Navigating to random post:', randomPost.collection, randomPost.slug);
-      window.location.href = `/${randomPost.collection}/${randomPost.slug}/`;
-    } else {
-      console.error('No posts available for random selection');
+  let touchStarted = false;
+  
+  const handleRandomPost = (e) => {
+    // Prevent event propagation and default behavior
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
+    
+    console.log('[Random Button] Button activated');
+    
+    // Filter out templates and posts without published status
+    const validPosts = allPosts.filter(post => 
+      !post.data?.isTemplate && 
+      post.data?.published !== false &&
+      post.data?.date // Only posts with dates
+    );
+    
+    console.log('[Random Button] Valid posts found:', validPosts.length);
+    
+    if (validPosts.length === 0) {
+      console.error('[Random Button] No valid posts available for random selection');
+      return;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * validPosts.length);
+    const randomPost = validPosts[randomIndex];
+    const url = `/${randomPost.collection}/${randomPost.slug}/`;
+    
+    console.log('[Random Button] Navigating to:', url);
+    
+    // Use window.location.href for reliable mobile navigation
+    window.location.href = url;
   };
   
-  // Add both click and touchend events for mobile compatibility
-  randomBtn?.addEventListener('click', handleRandomPost);
-  randomBtn?.addEventListener('touchend', (e) => {
-    e.preventDefault(); // Prevent double-firing on mobile
-    handleRandomPost();
-  });
+  if (randomBtn) {
+    // Handle touch start to track touch events
+    randomBtn.addEventListener('touchstart', (e) => {
+      console.log('[Random Button] Touch start');
+      touchStarted = true;
+    }, { passive: true });
+    
+    // Handle touch end
+    randomBtn.addEventListener('touchend', (e) => {
+      console.log('[Random Button] Touch end');
+      if (touchStarted) {
+        touchStarted = false;
+        handleRandomPost(e);
+      }
+    });
+    
+    // Handle click for desktop (only if touch didn't fire)
+    randomBtn.addEventListener('click', (e) => {
+      console.log('[Random Button] Click event');
+      // Small delay to see if touch event fired first
+      setTimeout(() => {
+        if (!touchStarted) {
+          handleRandomPost(e);
+        }
+      }, 10);
+    });
+    
+    // Ensure button is focusable and accessible
+    randomBtn.setAttribute('tabindex', '0');
+    
+    // Handle keyboard activation
+    randomBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        console.log('[Random Button] Keyboard activation');
+        handleRandomPost(e);
+      }
+    });
+  } else {
+    console.error('[Random Button] Button element not found');
+  }
 </script>
