@@ -32,6 +32,16 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
       </div>
     </header>
 
+    {post.data.coverImage && (
+      <div class="mb-8 text-center">
+        <img 
+          src={post.data.coverImage} 
+          alt={`Cover image for ${post.data.title}`}
+          class="mx-auto rounded-lg shadow-lg max-w-md w-full"
+        />
+      </div>
+    )}
+
     {post.data.soundcloudUrl && (
       <div class="mb-8">
         <iframe 
@@ -40,6 +50,21 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
           scrolling="no" 
           frameborder="no"
           src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(post.data.soundcloudUrl)}`}>
+        </iframe>
+      </div>
+    )}
+
+    {post.data.spotifyUrl && (
+      <div class="mb-8">
+        <iframe 
+          style="border-radius:12px" 
+          src={post.data.spotifyUrl.replace('https://open.spotify.com/', 'https://open.spotify.com/embed/')}
+          width="100%" 
+          height="352" 
+          frameBorder="0" 
+          allowfullscreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy">
         </iframe>
       </div>
     )}
