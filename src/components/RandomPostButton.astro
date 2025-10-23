@@ -1,36 +1,54 @@
-<script define:vars={{ allPosts }}>
+<button 
+  type="button"
+  id="random-post-btn"
+  class="nav-link text-sm font-medium text-text-secondary-light dark:text-text-secondary transition-colors hover:text-accent font-mono block w-full text-left py-2 rounded hover:bg-surface-light dark:hover:bg-surface md:w-auto md:py-0 md:hover:bg-transparent cursor-pointer select-none"
+  title="Random post"
+  aria-label="Go to random post"
+>
+  <span class="md:hidden">🎲 Random post</span>
+  <span class="hidden md:inline">🎲</span>
+</button>
+
+<script>
+  // Fetch all posts dynamically when button is clicked
   const randomBtn = document.getElementById('random-post-btn');
   
-  const handleRandomPost = (e) => {
+  const handleRandomPost = async (e) => {
     e?.preventDefault();
     e?.stopPropagation();
     
     console.log('[Random Button] Activated');
     
-    const validPosts = allPosts.filter(post => 
-      !post.data?.isTemplate && 
-      post.data?.published !== false &&
-      post.data?.date
-    );
-    
-    if (validPosts.length === 0) {
-      console.error('[Random Button] No valid posts');
-      return;
+    try {
+      // Fetch the list of all posts from your site
+      // You'll need to create an endpoint that returns this data
+      const response = await fetch('/api/posts.json');
+      const allPosts = await response.json();
+      
+      const validPosts = allPosts.filter(post => 
+        !post.isTemplate && 
+        post.published !== false &&
+        post.date
+      );
+      
+      if (validPosts.length === 0) {
+        console.error('[Random Button] No valid posts');
+        return;
+      }
+      
+      const randomIndex = Math.floor(Math.random() * validPosts.length);
+      const randomPost = validPosts[randomIndex];
+      
+      console.log('[Random Button] Navigating to:', randomPost.url);
+      window.location.href = randomPost.url;
+    } catch (error) {
+      console.error('[Random Button] Error:', error);
     }
-    
-    const randomIndex = Math.floor(Math.random() * validPosts.length);
-    const randomPost = validPosts[randomIndex];
-    const url = `/${randomPost.collection}/${randomPost.slug}/`;
-    
-    console.log('[Random Button] Navigating to:', url);
-    window.location.href = url;
   };
   
   if (randomBtn) {
-    // Single unified handler
     randomBtn.addEventListener('click', handleRandomPost);
     
-    // Keyboard support
     randomBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         handleRandomPost(e);
