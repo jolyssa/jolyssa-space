@@ -81,8 +81,8 @@ const relatedPosts = allThoughts
               href={`/thoughts/${related.slug}/`}
               class="block p-4 bg-surface-light dark:bg-surface rounded-lg hover:bg-surface-light/80 dark:hover:bg-surface/80 transition-colors"
             >
-              <h3 class="font-semibold mb-1 text-text-primary-light dark:text-text-primary">{related.data.title}</h3>
-              <p class="text-sm text-text-secondary-light dark:text-text-secondary">{related.data.excerpt}</p>
+              <h3 class="font-semibold font-serif mb-1 text-text-primary-light dark:text-text-primary">{related.data.title}</h3>
+              <p class="text-sm text-text-secondary-light dark:text-text-secondary font-mono mt-2">{related.data.excerpt}</p>
             </a>
           ))}
         </div>

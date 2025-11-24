@@ -2,7 +2,7 @@
 title: "october updates"
 date: 2025-11-05
 excerpt: "some brief points on what has happened this month, and some thoughts on these matters"
-tags: ["update", "personal", "reflection"]
+tags: ["update", "personal"]
 mood: "just typing"
 featured: false
 isTemplate: false
