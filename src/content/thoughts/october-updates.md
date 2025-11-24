@@ -1,0 +1,34 @@
+---
+title: "october updates"
+date: 2025-11-05
+excerpt: "some brief points on what has happened this month, and some thoughts on these matters"
+tags: ["update", "personal", "reflection"]
+mood: "just typing"
+featured: false
+isTemplate: false
+---
+
+# october updates
+
+- Miss got her visa! Which was a huge thing that was weighing on us for a little. Getting everything together, timing her departure before rent, looking for a discounted flight. One day we pulled the trigger on a random Monday evening, and the rest is history. She got to go to Mexico and come back to the country. Beautiful, isn't it?
+- Going back to [redacted] in January
+- Going to sell some stuff before moving. Sad to see it go but I'm also really excited to build again for the new space.
+- Finally leaving Ottawa, and I have to say, I will not miss it here. Just not my city!
+- After my next contracted job, I am getting a place in the city with Miss where I hope it'll be more our vibe and not just surrounded by families. They're cool but I already did the suburban lifestyle and I'm looking for a littttllleee bit more than that!
+- This season is about prepping for winter: making routines now so that when winter comes round I'm not flailing. -> Early wakeup times, early studying, getting the important shit done in the morning so come evening I can relax. For me, the winter is the perfect time to dive into deep learning, so my topics of choice this winter are Korean and re-focusing on DSA and interview prep for months later. Last year was web development, and this year in terms of web dev I'll be practicing my skills, and also continue writing my technical blogs. 
+- I've been putting off learning crochet: although I have started. It just ends up looking a hot mess. I want to actually dedicate some hours to it and decide from there. There is nothing I can't do, some things just take time and practice.
+- Finally returning the boatload of books and DVD's from the library (sorry to anyone who was waiting for them)
+- Reading: Beloved by Tori Morrison. Although I'm only a few pages deep, the premise has me deeply intrigued and pulls me in immediately. If I wasn't busy during the times I started reading, I reckon I'd be much further into the book
+- I love my alone time. I love spending time by myself. I'm so funny and my company is just so warm and good. Lmfao.
+- I can't wait to have a couch
+- Can't wait to be making REAL adult money
+- Unpacking things learned not only in childhood, but the limiting belief I have picked up in my early adulthood, too. There are lots of parts of my brain I want to re-wire that can only happen with many many positive experiences to tell my brain that it doesn't always have to be like this. So my main focus between 25 and 30 is telling my brain "look, look how beautiful life can be if we let and go after it"
+- I'm no different from any other 20 something year old trying to figure out life: you know you've left your teenagehood when the knees creak a little bit more and you can feel the difference of not being as active as you used to be. You have to make a much more concious effort. I understand the beratements of my mother on food choices and her preaching of "health is wealth" because it truly is. Everyday I'm grateful for the things I take for granted each and everyday.
+- Interestingly enough, I never looked too far in my head so some facets of my life surprise me. I never thought I'd be in a happy relationship living together, and having someone that enriches my life so beautifully because of her presence. I never thought of how much space can be filled with others company, how other people's soul have such a glowing quality that fill in the dark spots of my heart. It was unexpected, and it's here to stay. I'm glad I don't have to go searching for loveee, tbh.
+- I feel destitute and dusty, but I know my time is coming. I'm more than capable and smart enough. I'm tired of being tired. Meaning it's time to get my life together, for real for real!
+- I'm deleting social media and reclaiming my time. If we truly think about how much time we spend scrolling, not just in one day or even a week, but the lifetime effect and how compound interest is not just for financials. It's in my health, it's in the hours spent, it's where we direct our energy. My shift is thinking more longterm not only for longevity, but for maintenance, for feeling good, for feeling alive. Do I ever feel good scrolling? For like, 10 mins max. Then it gets too much. If I scroll too much I start to feel stuck, and my brain wants to leave but feels like it can't move. So why continue? Why not purge and try to fill those hours doing other things? I'm starting now. I'm keeping IG and TT purely because I have a lot of people to reply too lmfaoooo
+- Clay creations: I made a candle holder and an incense catcher. Two little simple things that actually increase my quality of life, so I'm happy.
+- The mundane: I'm trying to make life more exciting because this year has been sort of a bore. I'd like to dance more, have more hobbies (and actually act and do them lol), go out more (but this place is so boring, which is why I'm leaving), and have friends over easier (which is where my own place comes in!)
+- Surprise surprise: you know when people say it's true that it's true what other people say about waking up early, working out, going for walks, etc? Yeah, it's true. If I can implore all of you to get back to the basics of maintaining the human body, I'd preach it if I could. I can't always live it, though.
+- Grateful: For my body, for the ability to move, for my hands, for my feet. For my health. For my senses. TO be able to see the beauty of the world, and the ugly. The ability to reason, the ability to feel even though it can hurt profoundly, the inverse is true as well. My car, for it's the only reason I can move cities easily anyway, and is truly like a home to me. For the wonderful people around me, who make my life better just by existing. To all my friends who I don't pick up the phone enough to talk to, who I still think about, who I still love. For the crisp air, for the changing leaves, for the small delights of the world (like a little sweet treat...), for those who choose to spread more kindness when it's easier to let your heart go cold, for the shared love between us all, for the food in the fridge. For the experience of life as me. I'm grateful.
+- Being in a transitionary state is weird, almost like in limbo. I never really know what to do with myself in these times. But I guess it's just preparing as much as you can for as long you feel is right, and waiting. How do you make waiting more exciting?
