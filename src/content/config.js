@@ -73,7 +73,7 @@ const consuming = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    type: z.enum(['movie', 'book', 'game', 'food']),
+    type: z.enum(['movie', 'book', 'game', 'food', 'list']),
     date: z.date(), // When consumed/discovered
     rating: z.number().min(1).max(5).optional(),
     status: z.enum(['completed', 'current', 'abandoned', 'craving']),
