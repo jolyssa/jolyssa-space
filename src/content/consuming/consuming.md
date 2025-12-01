@@ -21,6 +21,9 @@ If you want to know more about what I've rated everything I've watched (usually 
 - Sex and the City
 - King the Land
 - The Queen's Gambit
+- Arcane
+- Little Fires Everywhere
+- Stranger Things
 
 
 **Movies:**
