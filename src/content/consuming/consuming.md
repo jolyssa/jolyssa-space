@@ -24,6 +24,8 @@ If you want to know more about what I've rated everything I've watched (usually 
 - Arcane
 - Little Fires Everywhere
 - Stranger Things
+- Crash Landing on You
+
 
 
 **Movies:**
@@ -69,6 +71,8 @@ If you want to know more about what I've rated everything I've watched (usually 
 
 **Games:**
 - Overwatch
+- Stardew Valley
+- Phasmophobia
 
 **Eating:**
 - Lots of rice and chicken
@@ -77,5 +81,6 @@ If you want to know more about what I've rated everything I've watched (usually 
 - Sandwiches galore (you can put anything in them!)
 - Frozen food for when I don't wanna cook: like patties, pizza, hashbrowns
 - Chinese or Indian takeout (curry is my weakness)
+- Miso's soup
 
 *This is for the year 2025.
