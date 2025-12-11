@@ -29,6 +29,8 @@ If you want to know more about what I've rated everything I've watched (usually 
 
 
 **Movies:**
+- The Grinch (2018)
+- The Nightmare Before Christmas
 - Sweeney Todd
 - Weapons
 - Edward Scissorhands
@@ -68,11 +70,20 @@ If you want to know more about what I've rated everything I've watched (usually 
 - *Multiple books that I've skimmed through at the library but don't remember what they're called lol*
 - Beloved by Toni Morrison
 - NANA by Ai Yazawa
+- Amulet by Kazu Kibuishi
+- The Giver (Graphic Novel) by P. Craig Russell
 
 **Games:**
-- Overwatch
+- Overwatch 2
 - Stardew Valley
 - Phasmophobia
+- Overcooked
+- GTA V
+- Legend of Zelda: The Tears of the Kingdom
+- Super Mario Odyssey
+- Valorant
+- Phasmophobia
+- Minecraft
 
 **Eating:**
 - Lots of rice and chicken
