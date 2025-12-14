@@ -29,6 +29,9 @@ If you want to know more about what I've rated everything I've watched (usually 
 
 
 **Movies:**
+- The Holiday Club
+- Black Panther
+- You Are Not Me
 - The Grinch (2018)
 - The Nightmare Before Christmas
 - Sweeney Todd
@@ -72,6 +75,7 @@ If you want to know more about what I've rated everything I've watched (usually 
 - NANA by Ai Yazawa
 - Amulet by Kazu Kibuishi
 - The Giver (Graphic Novel) by P. Craig Russell
+- Big Nate Goes For Broke by Lincoln Peirce (this is a case of reading a childhood book before giving it away lol)
 
 **Games:**
 - Overwatch 2
