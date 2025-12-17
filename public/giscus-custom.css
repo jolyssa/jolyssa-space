@@ -280,14 +280,12 @@ button {
 }
 
 /* The comment button specifically */
-.gsc-comment-box-tabs-panel button[type="submit"],
 .gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"] {
   background-color: var(--color-btn-primary-bg) !important;
   border-color: var(--color-btn-primary-border) !important;
   color: var(--color-btn-primary-text) !important;
 }
 
-.gsc-comment-box-tabs-panel button[type="submit"]:hover,
 .gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"]:hover {
   background-color: var(--color-btn-primary-hover-bg) !important;
   border-color: var(--color-btn-primary-hover-border) !important;
