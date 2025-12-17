@@ -1,8 +1,3 @@
----
-// src/components/Comments.astro
-// Giscus comments powered by GitHub Discussions
----
-
 <div class="comments-section mt-16 pt-8 border-t border-surface-light dark:border-surface">
   <div class="max-w-3xl mx-auto">
     <h2 class="font-serif text-3xl font-bold mb-4 text-text-primary-light dark:text-text-primary">
@@ -11,7 +6,7 @@
     <p class="text-text-secondary-light dark:text-text-secondary font-mono mb-8 text-sm">
       Join the discussion on GitHub. Sign in with your GitHub account to comment.
     </p>
-    
+
     <div class="giscus-wrapper bg-surface-light dark:bg-surface rounded-xl p-6">
       <div class="giscus-container"></div>
     </div>
@@ -35,7 +30,7 @@
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'top');
     
-    // Use your custom theme
+    // Use your custom theme CSS (post-auth styling)
     script.setAttribute('data-theme', `${window.location.origin}/giscus-custom.css`);
     
     script.setAttribute('data-lang', 'en');
@@ -45,15 +40,10 @@
     container.appendChild(script);
   }
 
-  // Load Giscus when component mounts
   loadGiscus();
 
-  // Handle theme changes
   function updateGiscusTheme() {
-    const theme = document.documentElement.classList.contains('dark') 
-      ? 'dark' 
-      : 'light';
-    
+    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     const iframe = document.querySelector('iframe.giscus-frame');
     if (iframe?.contentWindow) {
       iframe.contentWindow.postMessage(
@@ -63,7 +53,6 @@
     }
   }
 
-  // Watch for theme toggle
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.attributeName === 'class') {
@@ -76,40 +65,19 @@
     attributes: true,
     attributeFilter: ['class']
   });
-
-  // Handle navigation (for view transitions if you add them later)
-  document.addEventListener('astro:page-load', () => {
-    loadGiscus();
-  });
 </script>
 
 <style>
-  .giscus-container {
-    min-height: 200px;
-  }
+  .giscus-container { min-height: 200px; }
 
   .giscus-wrapper {
-    /* Add subtle shadow to make it feel integrated */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: box-shadow 0.3s ease;
   }
 
-  .dark .giscus-wrapper {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .giscus-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .dark .giscus-wrapper:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Ensure Giscus matches your theme */
-  :global(.giscus) {
-    width: 100%;
-  }
+  .dark .giscus-wrapper { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .giscus-wrapper:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .dark .giscus-wrapper:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
 
   :global(.giscus-frame) {
     width: 100%;
@@ -117,21 +85,9 @@
     min-height: 200px;
   }
 
-  /* Additional styling to match your aesthetic */
-  .comments-section {
-    font-family: var(--font-mono, 'Geist Mono', monospace);
-  }
+  html:not(.dark) .giscus-container { color-scheme: light; }
+  .dark .giscus-container { color-scheme: dark; }
 
-  /* Make the container blend with your design */
-  html:not(.dark) .giscus-container {
-    color-scheme: light;
-  }
-
-  .dark .giscus-container {
-    color-scheme: dark;
-  }
-
-  /* Smooth loading state */
   .giscus-container:empty::after {
     content: 'Loading comments...';
     display: block;
