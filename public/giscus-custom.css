@@ -9,25 +9,25 @@
   --color-canvas-default: #2D2D2D !important;
   --color-canvas-subtle: #3A3A3A !important;
   --color-canvas-inset: #252525 !important;
-  
+
   --color-fg-default: #E5E5E5 !important;
   --color-fg-muted: #A6A6A6 !important;
   --color-fg-subtle: #808080 !important;
-  
+
   --color-accent-fg: #4791B1 !important;
   --color-accent-emphasis: #5BB3D9 !important;
   --color-accent-muted: rgba(71, 145, 177, 0.4) !important;
   --color-accent-subtle: rgba(71, 145, 177, 0.15) !important;
-  
+
   --color-border-default: #3A3A3A !important;
   --color-border-muted: #4A4A4A !important;
-  
+
   --color-btn-bg: #3A3A3A !important;
   --color-btn-border: #4A4A4A !important;
   --color-btn-text: #E5E5E5 !important;
   --color-btn-hover-bg: #404040 !important;
   --color-btn-hover-border: #5A5A5A !important;
-  
+
   --color-btn-primary-bg: #4791B1 !important;
   --color-btn-primary-border: #4791B1 !important;
   --color-btn-primary-text: #FFFFFF !important;
@@ -35,10 +35,10 @@
   --color-btn-primary-hover-border: #5BB3D9 !important;
   --color-btn-primary-disabled-bg: #3A6A7F !important;
   --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.5) !important;
-  
+
   --color-input-bg: #252525 !important;
   --color-input-border: #4A4A4A !important;
-  
+
   --color-prettylights-syntax-markup-inserted-text: #4791B1 !important;
   --color-prettylights-syntax-markup-inserted-bg: rgba(71, 145, 177, 0.1) !important;
 }
@@ -48,29 +48,29 @@
   --color-canvas-default: #FAFAFA !important;
   --color-canvas-subtle: #FFFFFF !important;
   --color-canvas-inset: #F5F5F5 !important;
-  
+
   --color-fg-default: #2D2D2D !important;
   --color-fg-muted: #6B6B6B !important;
   --color-fg-subtle: #8B8B8B !important;
-  
+
   --color-accent-fg: #4791B1 !important;
   --color-accent-emphasis: #3A7A92 !important;
   --color-accent-muted: rgba(71, 145, 177, 0.4) !important;
   --color-accent-subtle: rgba(71, 145, 177, 0.1) !important;
-  
+
   --color-border-default: #E0E0E0 !important;
   --color-border-muted: #D0D0D0 !important;
-  
+
   --color-btn-bg: #FFFFFF !important;
   --color-btn-border: #D0D0D0 !important;
   --color-btn-text: #2D2D2D !important;
   --color-btn-hover-bg: #F5F5F5 !important;
-  
+
   --color-btn-primary-bg: #4791B1 !important;
   --color-btn-primary-border: #4791B1 !important;
   --color-btn-primary-text: #FFFFFF !important;
   --color-btn-primary-hover-bg: #3A7A92 !important;
-  
+
   --color-input-bg: #FFFFFF !important;
   --color-input-border: #D0D0D0 !important;
 }
@@ -86,238 +86,99 @@ main {
   background-color: transparent !important;
 }
 
-/* Font sizes matching your site */
-.gsc-comment-author {
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-}
-
-.gsc-comment-content {
-  font-size: 0.9375rem !important;
-  line-height: 1.7 !important;
-}
-
-.gsc-reactions {
-  font-size: 0.8125rem !important;
-}
+/* Font sizes */
+.gsc-comment-author { font-size: 0.875rem !important; font-weight: 600 !important; }
+.gsc-comment-content { font-size: 0.9375rem !important; line-height: 1.7 !important; }
+.gsc-reactions { font-size: 0.8125rem !important; }
 
 /* Comment boxes */
-.gsc-comment-box-tabs {
-  border-bottom-color: var(--color-border-default) !important;
-  font-size: 0.875rem !important;
-}
-
-.gsc-comment-box-main {
-  background-color: var(--color-canvas-subtle) !important;
-  border-color: var(--color-border-default) !important;
-}
-
-.gsc-comment-box-main:focus-within {
-  border-color: var(--color-accent-emphasis) !important;
-}
+.gsc-comment-box-tabs { border-bottom-color: var(--color-border-default) !important; font-size: 0.875rem !important; }
+.gsc-comment-box-main { background-color: var(--color-canvas-subtle) !important; border-color: var(--color-border-default) !important; }
+.gsc-comment-box-main:focus-within { border-color: var(--color-accent-emphasis) !important; }
 
 /* Individual comments */
-.gsc-comment {
-  background-color: var(--color-canvas-subtle) !important;
-  border-color: var(--color-border-default) !important;
-  border-radius: 8px !important;
-}
-
-.gsc-comment-header {
-  color: var(--color-fg-muted) !important;
-  font-size: 0.8125rem !important;
-}
-
-.gsc-comment-author {
-  color: var(--color-fg-default) !important;
-}
-
-.gsc-comment-author-association {
-  background-color: var(--color-accent-subtle) !important;
-  color: var(--color-accent-fg) !important;
-  border-color: var(--color-accent-muted) !important;
-}
+.gsc-comment { background-color: var(--color-canvas-subtle) !important; border-color: var(--color-border-default) !important; border-radius: 8px !important; }
+.gsc-comment-header { color: var(--color-fg-muted) !important; font-size: 0.8125rem !important; }
+.gsc-comment-author { color: var(--color-fg-default) !important; }
+.gsc-comment-author-association { background-color: var(--color-accent-subtle) !important; color: var(--color-accent-fg) !important; border-color: var(--color-accent-muted) !important; }
 
 /* Timeline */
-.gsc-timeline-header {
-  border-color: var(--color-border-default) !important;
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-}
+.gsc-timeline-header { border-color: var(--color-border-default) !important; font-size: 0.875rem !important; font-weight: 600 !important; }
 
 /* Reactions */
-.gsc-reactions-count {
-  border-color: var(--color-border-default) !important;
-  background-color: var(--color-canvas-subtle) !important;
-  font-size: 0.8125rem !important;
-}
+.gsc-reactions-count { border-color: var(--color-border-default) !important; background-color: var(--color-canvas-subtle) !important; font-size: 0.8125rem !important; }
+.gsc-reactions-count:hover { background-color: var(--color-btn-hover-bg) !important; }
+.gsc-social-reaction-summary-item--has-reacted { border-color: var(--color-accent-emphasis) !important; background-color: var(--color-accent-subtle) !important; }
 
-.gsc-reactions-count:hover {
-  background-color: var(--color-btn-hover-bg) !important;
-}
-
-.gsc-social-reaction-summary-item--has-reacted {
-  border-color: var(--color-accent-emphasis) !important;
-  background-color: var(--color-accent-subtle) !important;
-}
-
-/* All links use your blue */
-a {
-  color: var(--color-accent-fg) !important;
-}
-
-a:hover {
-  color: var(--color-accent-emphasis) !important;
-}
+/* Links */
+a { color: var(--color-accent-fg) !important; }
+a:hover { color: var(--color-accent-emphasis) !important; }
 
 /* Markdown in comments */
-.markdown {
-  color: var(--color-fg-default) !important;
-  font-size: 0.9375rem !important;
-  line-height: 1.7 !important;
-}
-
-.markdown h1, .markdown h2, .markdown h3 {
-  font-weight: 700 !important;
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.75rem !important;
-}
-
-.markdown p {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
-.markdown pre {
-  background-color: var(--color-canvas-inset) !important;
-  border-color: var(--color-border-default) !important;
-  border-radius: 6px !important;
-  padding: 1rem !important;
-  font-size: 0.875rem !important;
-}
-
-.markdown code {
-  background-color: var(--color-canvas-inset) !important;
-  color: var(--color-fg-default) !important;
-  padding: 0.2rem 0.4rem !important;
-  border-radius: 3px !important;
-  font-size: 0.875rem !important;
-}
-
-.markdown pre code {
-  background-color: transparent !important;
-  padding: 0 !important;
-}
+.markdown { color: var(--color-fg-default) !important; font-size: 0.9375rem !important; line-height: 1.7 !important; }
+.markdown h1, .markdown h2, .markdown h3 { font-weight: 700 !important; margin-top: 1.5rem !important; margin-bottom: 0.75rem !important; }
+.markdown p { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+.markdown pre { background-color: var(--color-canvas-inset) !important; border-color: var(--color-border-default) !important; border-radius: 6px !important; padding: 1rem !important; font-size: 0.875rem !important; }
+.markdown code { background-color: var(--color-canvas-inset) !important; color: var(--color-fg-default) !important; padding: 0.2rem 0.4rem !important; border-radius: 3px !important; font-size: 0.875rem !important; }
+.markdown pre code { background-color: transparent !important; padding: 0 !important; }
 
 /* Blockquotes */
-.markdown blockquote {
-  border-left: 3px solid var(--color-accent-emphasis) !important;
-  color: var(--color-fg-muted) !important;
-  padding-left: 1rem !important;
-  margin-left: 0 !important;
-}
+.markdown blockquote { border-left: 3px solid var(--color-accent-emphasis) !important; color: var(--color-fg-muted) !important; padding-left: 1rem !important; margin-left: 0 !important; }
 
 /* Lists */
-.markdown ul, .markdown ol {
-  padding-left: 1.5rem !important;
-}
+.markdown ul, .markdown ol { padding-left: 1.5rem !important; }
 
 /* Avatars */
-.gsc-avatar {
-  border-color: var(--color-border-default) !important;
-  border-radius: 50% !important;
-}
+.gsc-avatar { border-color: var(--color-border-default) !important; border-radius: 50% !important; }
 
 /* Loading skeleton */
 .gsc-loading-skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--color-canvas-subtle) 0%,
-    var(--color-canvas-inset) 50%,
-    var(--color-canvas-subtle) 100%
-  ) !important;
+  background: linear-gradient(90deg, var(--color-canvas-subtle) 0%, var(--color-canvas-inset) 50%, var(--color-canvas-subtle) 100%) !important;
 }
 
 /* Pagination */
-.gsc-pagination {
-  border-color: var(--color-border-default) !important;
-}
+.gsc-pagination { border-color: var(--color-border-default) !important; }
 
 /* Sign in prompt */
-.gsc-reply-box-is-reply-disabled {
-  background-color: var(--color-canvas-subtle) !important;
-  border-color: var(--color-border-default) !important;
-  border-radius: 8px !important;
-}
+.gsc-reply-box-is-reply-disabled { background-color: var(--color-canvas-subtle) !important; border-color: var(--color-border-default) !important; border-radius: 8px !important; }
 
 /* Text area */
-textarea {
-  background-color: var(--color-input-bg) !important;
-  border-color: var(--color-input-border) !important;
-  color: var(--color-fg-default) !important;
-  font-size: 0.9375rem !important;
-}
+textarea { background-color: var(--color-input-bg) !important; border-color: var(--color-input-border) !important; color: var(--color-fg-default) !important; font-size: 0.9375rem !important; }
+textarea:focus { border-color: var(--color-accent-emphasis) !important; outline: none !important; box-shadow: 0 0 0 3px var(--color-accent-subtle) !important; }
 
-textarea:focus {
-  border-color: var(--color-accent-emphasis) !important;
-  outline: none !important;
-  box-shadow: 0 0 0 3px var(--color-accent-subtle) !important;
-}
-
-/* Buttons - all get your blue */
-button {
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-  border-radius: 6px !important;
-}
-
-/* The comment button specifically */
-.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"] {
-  background-color: var(--color-btn-primary-bg) !important;
-  border-color: var(--color-btn-primary-border) !important;
-  color: var(--color-btn-primary-text) !important;
-}
-
-.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"]:hover {
-  background-color: var(--color-btn-primary-hover-bg) !important;
-  border-color: var(--color-btn-primary-hover-border) !important;
-}
-
-/* Secondary buttons */
-.gsc-comment-box-tabs button {
-  color: var(--color-fg-muted) !important;
+/* Buttons - all buttons outlined by default */
+.gsc-reply-box button[type="submit"] {
   background-color: transparent !important;
-}
-
-.gsc-comment-box-tabs button[data-active="true"] {
-  color: var(--color-fg-default) !important;
-  border-bottom: 2px solid var(--color-accent-emphasis) !important;
-}
-
-.gsc-comment-box-tabs button:hover {
-  color: var(--color-fg-default) !important;
-}
-
-/* === PRE-AUTH: Sign in with GitHub button === */
-.gsc-reply-box-is-reply-disabled button {
-  background-color: transparent !important;
-  border: 1.5px solid #5BB3D9 !important; /* thin bright blue border */
-  color: #5BB3D9 !important; /* text readable on dark background */
+  border: 1.5px solid #5BB3D9 !important;
+  color: #5BB3D9 !important;
   border-radius: 6px !important;
   padding: 0.5rem 1rem !important;
   font-weight: 600 !important;
   font-size: 0.875rem !important;
 }
 
-.gsc-reply-box-is-reply-disabled button svg {
-  fill: #5BB3D9 !important;
-}
+.gsc-reply-box button[type="submit"] svg { fill: #5BB3D9 !important; }
 
-.gsc-reply-box-is-reply-disabled button:hover {
-  background-color: rgba(91, 179, 217, 0.15) !important; /* subtle fill on hover */
+.gsc-reply-box button[type="submit"]:hover {
+  background-color: rgba(91, 179, 217, 0.15) !important;
   color: #5BB3D9 !important;
 }
 
-.gsc-reply-box-is-reply-disabled button:hover svg {
-  fill: #5BB3D9 !important;
+.gsc-reply-box button[type="submit"]:hover svg { fill: #5BB3D9 !important; }
+
+/* Solid Comment button after sign-in */
+.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"] {
+  background-color: #4791B1 !important;
+  border-color: #4791B1 !important;
+  color: #FFFFFF !important;
 }
+
+.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"]:hover {
+  background-color: #5BB3D9 !important;
+  border-color: #5BB3D9 !important;
+}
+
+/* Secondary buttons in tabs */
+.gsc-comment-box-tabs button { color: var(--color-fg-muted) !important; background-color: transparent !important; }
+.gsc-comment-box-tabs button[data-active="true"] { color: var(--color-fg-default) !important; border-bottom: 2px solid var(--color-accent-emphasis) !important; }
+.gsc-comment-box-tabs button:hover { color: var(--color-fg-default) !important; }
