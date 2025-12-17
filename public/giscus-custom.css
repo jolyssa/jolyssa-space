@@ -28,10 +28,10 @@
   --color-btn-hover-bg: #404040 !important;
   --color-btn-hover-border: #5A5A5A !important;
 
-  --color-btn-primary-bg: #4791B1 !important;
-  --color-btn-primary-border: #4791B1 !important;
-  --color-btn-primary-text: #FFFFFF !important;
-  --color-btn-primary-hover-bg: #5BB3D9 !important;
+  --color-btn-primary-bg: #2D2D2D !important; /* matches background */
+  --color-btn-primary-border: #4791B1 !important; /* blue border */
+  --color-btn-primary-text: #4791B1 !important; /* blue text */
+  --color-btn-primary-hover-bg: rgba(71,145,177,0.15) !important; /* subtle hover */
   --color-btn-primary-hover-border: #5BB3D9 !important;
   --color-btn-primary-disabled-bg: #3A6A7F !important;
   --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.5) !important;
@@ -66,25 +66,24 @@
   --color-btn-text: #2D2D2D !important;
   --color-btn-hover-bg: #F5F5F5 !important;
 
-  --color-btn-primary-bg: #4791B1 !important;
-  --color-btn-primary-border: #4791B1 !important;
-  --color-btn-primary-text: #FFFFFF !important;
-  --color-btn-primary-hover-bg: #3A7A92 !important;
+  --color-btn-primary-bg: #FAFAFA !important; /* matches background */
+  --color-btn-primary-border: #4791B1 !important; /* blue border */
+  --color-btn-primary-text: #4791B1 !important; /* blue text */
+  --color-btn-primary-hover-bg: rgba(71,145,177,0.15) !important;
+  --color-btn-primary-hover-border: #5BB3D9 !important;
 
   --color-input-bg: #FFFFFF !important;
   --color-input-border: #D0D0D0 !important;
 }
 
-/* Apply your mono font everywhere */
+/* Font and transitions */
 * {
   font-family: 'Geist Mono', 'Monaco', 'Courier New', monospace !important;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
 /* Main container */
-main {
-  background-color: transparent !important;
-}
+main { background-color: transparent !important; }
 
 /* Font sizes */
 .gsc-comment-author { font-size: 0.875rem !important; font-weight: 600 !important; }
@@ -114,18 +113,14 @@ main {
 a { color: var(--color-accent-fg) !important; }
 a:hover { color: var(--color-accent-emphasis) !important; }
 
-/* Markdown in comments */
+/* Markdown */
 .markdown { color: var(--color-fg-default) !important; font-size: 0.9375rem !important; line-height: 1.7 !important; }
 .markdown h1, .markdown h2, .markdown h3 { font-weight: 700 !important; margin-top: 1.5rem !important; margin-bottom: 0.75rem !important; }
 .markdown p { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
 .markdown pre { background-color: var(--color-canvas-inset) !important; border-color: var(--color-border-default) !important; border-radius: 6px !important; padding: 1rem !important; font-size: 0.875rem !important; }
 .markdown code { background-color: var(--color-canvas-inset) !important; color: var(--color-fg-default) !important; padding: 0.2rem 0.4rem !important; border-radius: 3px !important; font-size: 0.875rem !important; }
 .markdown pre code { background-color: transparent !important; padding: 0 !important; }
-
-/* Blockquotes */
 .markdown blockquote { border-left: 3px solid var(--color-accent-emphasis) !important; color: var(--color-fg-muted) !important; padding-left: 1rem !important; margin-left: 0 !important; }
-
-/* Lists */
 .markdown ul, .markdown ol { padding-left: 1.5rem !important; }
 
 /* Avatars */
@@ -139,44 +134,30 @@ a:hover { color: var(--color-accent-emphasis) !important; }
 /* Pagination */
 .gsc-pagination { border-color: var(--color-border-default) !important; }
 
-/* Sign in prompt */
-.gsc-reply-box-is-reply-disabled { background-color: var(--color-canvas-subtle) !important; border-color: var(--color-border-default) !important; border-radius: 8px !important; }
-
 /* Text area */
 textarea { background-color: var(--color-input-bg) !important; border-color: var(--color-input-border) !important; color: var(--color-fg-default) !important; font-size: 0.9375rem !important; }
 textarea:focus { border-color: var(--color-accent-emphasis) !important; outline: none !important; box-shadow: 0 0 0 3px var(--color-accent-subtle) !important; }
 
-/* Buttons - all buttons outlined by default */
+/* === ALL SUBMIT BUTTONS === */
 .gsc-reply-box button[type="submit"] {
-  background-color: transparent !important;
-  border: 1.5px solid #5BB3D9 !important;
-  color: #5BB3D9 !important;
+  background-color: transparent !important; /* no fill */
+  border: 1.5px solid #4791B1 !important; /* blue border */
+  color: #4791B1 !important; /* blue text */
   border-radius: 6px !important;
   padding: 0.5rem 1rem !important;
   font-weight: 600 !important;
   font-size: 0.875rem !important;
 }
 
-.gsc-reply-box button[type="submit"] svg { fill: #5BB3D9 !important; }
+.gsc-reply-box button[type="submit"] svg { fill: #4791B1 !important; }
 
 .gsc-reply-box button[type="submit"]:hover {
-  background-color: rgba(91, 179, 217, 0.15) !important;
+  background-color: rgba(91,179,217,0.15) !important;
+  border-color: #5BB3D9 !important;
   color: #5BB3D9 !important;
 }
 
 .gsc-reply-box button[type="submit"]:hover svg { fill: #5BB3D9 !important; }
-
-/* Solid Comment button after sign-in */
-.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"] {
-  background-color: #4791B1 !important;
-  border-color: #4791B1 !important;
-  color: #FFFFFF !important;
-}
-
-.gsc-reply-box:not(.gsc-reply-box-is-reply-disabled) button[type="submit"]:hover {
-  background-color: #5BB3D9 !important;
-  border-color: #5BB3D9 !important;
-}
 
 /* Secondary buttons in tabs */
 .gsc-comment-box-tabs button { color: var(--color-fg-muted) !important; background-color: transparent !important; }
