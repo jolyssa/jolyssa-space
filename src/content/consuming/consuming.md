@@ -12,6 +12,7 @@ isTemplate: false
 If you want to know more about what I've rated everything I've watched (usually more movie-wise), follow me on [Letterboxd](https://boxd.it/8BGZ3).
 
 **TV Shows:**
+- Crash Landing on You
 - Pluribus
 - Initial D
 - Nana
@@ -24,7 +25,6 @@ If you want to know more about what I've rated everything I've watched (usually 
 - Arcane
 - Little Fires Everywhere
 - Stranger Things
-- Crash Landing on You
 
 
 
