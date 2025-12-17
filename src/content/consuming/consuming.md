@@ -29,6 +29,7 @@ If you want to know more about what I've rated everything I've watched (usually 
 
 
 **Movies:**
+- Home Alone
 - The Holiday Club
 - Black Panther
 - You Are Not Me
