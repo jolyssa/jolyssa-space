@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
+import Comments from '../../components/Comments.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -88,6 +89,8 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
     <div class="prose-custom">
       <Content />
     </div>
+
+    <Comments />
 
     <div class="mt-12 text-center">
       <a href="/music" class="text-accent hover:text-accent-light">← Back to all music</a>

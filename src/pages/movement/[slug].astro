@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
+import Comments from '../../components/Comments.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -88,6 +89,8 @@ const title = `${post.data.month} ${post.data.year}`;
       <Content />
     </div>
 
+    <Comments />
+    
     <div class="mt-12 text-center">
       <a href="/movement" class="text-accent hover:text-accent-light">← Back to movement</a>
     </div>

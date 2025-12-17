@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import Comments from '../../components/Comments.astro';
 import { calculateReadingTimeForPost } from '../../utils/readingTime.js';
 
 export async function getStaticPaths() {
@@ -42,6 +43,8 @@ const readingTime = await calculateReadingTimeForPost(post);
     <div class="prose-custom">
       <Content />
     </div>
+
+    <Comments />
 
     <div class="mt-12 text-center">
       <a href="/making" class="text-accent hover:text-accent-light">← Back to all making</a>

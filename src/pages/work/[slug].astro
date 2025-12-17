@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/BaseLayout.astro';
+import Comments from '../../components/Comments.astro';
 import { getCollection } from 'astro:content';
 import { calculateReadingTimeForPost } from '../../utils/readingTime.js';
 
@@ -53,8 +54,12 @@ const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
       )}
     </div>
 
+    <Comments />
+    
     <div class="mt-12 text-center">
       <a href="/work" class="text-accent hover:text-accent-light">← Back to work</a>
     </div>
   </article>
 </Layout>
+
+<!-- not exactly sure what this page "work" is supposed to be for just yet, but added comment functionality -->
