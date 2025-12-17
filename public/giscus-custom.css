@@ -1,64 +1,131 @@
 /* Custom Giscus Theme for jolyssa.space */
+/* Matches your exact colors, fonts, and vibe */
 
-/* Import mono font */
+/* Import your mono font */
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap');
 
-/* Dark theme defaults */
+/* Dark theme (default) */
 :root {
+  /* Background colors */
   --color-canvas-default: #2D2D2D !important;
   --color-canvas-subtle: #3A3A3A !important;
   --color-canvas-inset: #252525 !important;
 
+  /* Text colors */
   --color-fg-default: #E5E5E5 !important;
   --color-fg-muted: #A6A6A6 !important;
+  --color-fg-subtle: #808080 !important;
 
+  /* Accent blue */
   --color-accent-fg: #4791B1 !important;
   --color-accent-emphasis: #5BB3D9 !important;
-  --color-accent-subtle: rgba(71,145,177,0.15) !important;
+  --color-accent-muted: rgba(71, 145, 177, 0.4) !important;
+  --color-accent-subtle: rgba(71, 145, 177, 0.15) !important;
 
+  /* Borders */
   --color-border-default: #3A3A3A !important;
+  --color-border-muted: #4A4A4A !important;
 
-  /* Primary button = Comment button after login */
-  --color-btn-primary-bg: #2D2D2D !important;
+  /* Primary button (post-auth) */
+  --color-btn-primary-bg: #4791B1 !important;
   --color-btn-primary-border: #4791B1 !important;
-  --color-btn-primary-text: #4791B1 !important;
-  --color-btn-primary-hover-bg: #3A3A3A !important;
+  --color-btn-primary-text: #FFFFFF !important;
+  --color-btn-primary-hover-bg: #5BB3D9 !important;
   --color-btn-primary-hover-border: #5BB3D9 !important;
-  --color-btn-primary-hover-text: #5BB3D9 !important;
+
+  /* Secondary button / pre-auth */
+  --color-btn-secondary-bg: var(--color-canvas-default) !important;
+  --color-btn-secondary-border: var(--color-accent-fg) !important;
+  --color-btn-secondary-text: var(--color-accent-fg) !important;
+  --color-btn-secondary-hover-bg: var(--color-accent-subtle) !important;
+
+  /* Input fields */
+  --color-input-bg: #252525 !important;
+  --color-input-border: #4A4A4A !important;
 }
 
-/* Font */
+/* Light theme */
+[data-theme="light"] {
+  --color-canvas-default: #FAFAFA !important;
+  --color-canvas-subtle: #FFFFFF !important;
+  --color-canvas-inset: #F5F5F5 !important;
+
+  --color-fg-default: #2D2D2D !important;
+  --color-fg-muted: #6B6B6B !important;
+  --color-fg-subtle: #8B8B8B !important;
+
+  --color-accent-fg: #4791B1 !important;
+  --color-accent-emphasis: #3A7A92 !important;
+  --color-accent-muted: rgba(71, 145, 177, 0.4) !important;
+  --color-accent-subtle: rgba(71, 145, 177, 0.1) !important;
+
+  --color-border-default: #E0E0E0 !important;
+  --color-border-muted: #D0D0D0 !important;
+
+  --color-btn-primary-bg: #4791B1 !important;
+  --color-btn-primary-border: #4791B1 !important;
+  --color-btn-primary-text: #FFFFFF !important;
+  --color-btn-primary-hover-bg: #3A7A92 !important;
+
+  --color-btn-secondary-bg: var(--color-canvas-default) !important;
+  --color-btn-secondary-border: var(--color-accent-fg) !important;
+  --color-btn-secondary-text: var(--color-accent-fg) !important;
+  --color-btn-secondary-hover-bg: var(--color-accent-subtle) !important;
+
+  --color-input-bg: #FFFFFF !important;
+  --color-input-border: #D0D0D0 !important;
+}
+
+/* Apply mono font everywhere */
 * {
-  font-family: 'Geist Mono', monospace !important;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s !important;
+  font-family: 'Geist Mono', 'Monaco', 'Courier New', monospace !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
 /* Buttons */
-.gsc-reply-box button[type="submit"] {
-  background-color: #2D2D2D !important;
-  border: 1.5px solid #4791B1 !important;
-  color: #4791B1 !important;
-  border-radius: 6px !important;
-  font-weight: 600 !important;
+button {
   font-size: 0.875rem !important;
-  padding: 0.5rem 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
 }
 
-.gsc-reply-box button[type="submit"]:hover {
-  background-color: #3A3A3A !important;
-  border-color: #5BB3D9 !important;
-  color: #5BB3D9 !important;
+/* Post-auth "Comment" button */
+.gsc-reply-box button[type="submit"],
+.gsc-comment-box-tabs-panel button[type="submit"] {
+  background-color: var(--color-btn-primary-bg) !important;
+  border: 1.5px solid var(--color-btn-primary-border) !important;
+  color: var(--color-btn-primary-text) !important;
 }
 
-.gsc-reply-box button[type="submit"] svg {
-  fill: #4791B1 !important;
+.gsc-reply-box button[type="submit"]:hover,
+.gsc-comment-box-tabs-panel button[type="submit"]:hover {
+  background-color: var(--color-btn-primary-hover-bg) !important;
+  border-color: var(--color-btn-primary-hover-border) !important;
 }
 
-.gsc-reply-box button[type="submit"]:hover svg {
-  fill: #5BB3D9 !important;
+/* Pre-auth "Sign in with GitHub" button */
+.gsc-reply-box-is-reply-disabled button {
+  background-color: var(--color-btn-secondary-bg) !important;
+  border: 1.5px solid var(--color-btn-secondary-border) !important;
+  color: var(--color-btn-secondary-text) !important;
 }
 
-/* Comment boxes */
+.gsc-reply-box-is-reply-disabled button:hover {
+  background-color: var(--color-btn-secondary-hover-bg) !important;
+  color: var(--color-btn-secondary-text) !important;
+}
+
+/* GitHub icon inside button */
+.gsc-reply-box-is-reply-disabled button svg {
+  fill: var(--color-btn-secondary-text) !important;
+}
+
+.gsc-reply-box-is-reply-disabled button:hover svg {
+  fill: var(--color-btn-secondary-text) !important;
+}
+
+/* Comment boxes, markdown, avatars, reactions, etc. */
+/* Keep all your previous styles (copy as-is from your old CSS) */
 .gsc-comment-box-main {
   background-color: var(--color-canvas-subtle) !important;
   border-color: var(--color-border-default) !important;
@@ -70,8 +137,30 @@
   border-radius: 8px !important;
 }
 
-/* Reactions, avatars, markdown, etc. remain styled as before */
-.gsc-reactions-count {
-  background-color: var(--color-canvas-subtle) !important;
-  border-color: var(--color-border-default) !important;
+.gsc-comment-header {
+  color: var(--color-fg-muted) !important;
+  font-size: 0.8125rem !important;
+}
+
+.gsc-comment-author {
+  color: var(--color-fg-default) !important;
+}
+
+.gsc-comment-author-association {
+  background-color: var(--color-accent-subtle) !important;
+  color: var(--color-accent-fg) !important;
+  border-color: var(--color-accent-muted) !important;
+}
+
+textarea {
+  background-color: var(--color-input-bg) !important;
+  border-color: var(--color-input-border) !important;
+  color: var(--color-fg-default) !important;
+  font-size: 0.9375rem !important;
+}
+
+textarea:focus {
+  border-color: var(--color-accent-emphasis) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--color-accent-subtle) !important;
 }

@@ -1,3 +1,8 @@
+---
+// src/components/Comments.astro
+// Giscus comments powered by GitHub Discussions
+---
+
 <div class="comments-section mt-16 pt-8 border-t border-surface-light dark:border-surface">
   <div class="max-w-3xl mx-auto">
     <h2 class="font-serif text-3xl font-bold mb-4 text-text-primary-light dark:text-text-primary">
@@ -6,7 +11,7 @@
     <p class="text-text-secondary-light dark:text-text-secondary font-mono mb-8 text-sm">
       Join the discussion on GitHub. Sign in with your GitHub account to comment.
     </p>
-
+    
     <div class="giscus-wrapper bg-surface-light dark:bg-surface rounded-xl p-6">
       <div class="giscus-container"></div>
     </div>
@@ -17,6 +22,8 @@
   function loadGiscus() {
     const container = document.querySelector('.giscus-container');
     if (!container || container.querySelector('script')) return;
+
+    const version = Date.now(); // Force fresh load
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
@@ -29,10 +36,10 @@
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'top');
-    
-    // Use your custom theme CSS (post-auth styling)
-    script.setAttribute('data-theme', `${window.location.origin}/giscus-custom.css`);
-    
+
+    // Use your custom theme, versioned to bypass cache
+    script.setAttribute('data-theme', `${window.location.origin}/giscus-custom.css?v=${version}`);
+
     script.setAttribute('data-lang', 'en');
     script.crossOrigin = 'anonymous';
     script.async = true;
@@ -40,8 +47,10 @@
     container.appendChild(script);
   }
 
+  // Load Giscus on mount
   loadGiscus();
 
+  // Update theme on dark/light switch
   function updateGiscusTheme() {
     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     const iframe = document.querySelector('iframe.giscus-frame');
@@ -65,19 +74,37 @@
     attributes: true,
     attributeFilter: ['class']
   });
+
+  document.addEventListener('astro:page-load', () => {
+    loadGiscus();
+  });
 </script>
 
 <style>
-  .giscus-container { min-height: 200px; }
+  .giscus-container {
+    min-height: 200px;
+  }
 
   .giscus-wrapper {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
   }
 
-  .dark .giscus-wrapper { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-  .giscus-wrapper:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-  .dark .giscus-wrapper:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+  .dark .giscus-wrapper {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .giscus-wrapper:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .dark .giscus-wrapper:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(.giscus) {
+    width: 100%;
+  }
 
   :global(.giscus-frame) {
     width: 100%;
@@ -85,8 +112,17 @@
     min-height: 200px;
   }
 
-  html:not(.dark) .giscus-container { color-scheme: light; }
-  .dark .giscus-container { color-scheme: dark; }
+  .comments-section {
+    font-family: var(--font-mono, 'Geist Mono', monospace);
+  }
+
+  html:not(.dark) .giscus-container {
+    color-scheme: light;
+  }
+
+  .dark .giscus-container {
+    color-scheme: dark;
+  }
 
   .giscus-container:empty::after {
     content: 'Loading comments...';
