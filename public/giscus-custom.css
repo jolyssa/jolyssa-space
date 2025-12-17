@@ -314,13 +314,25 @@ button {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
-/* Fix Giscus "Sign in with GitHub" button text visibility */
-.gsc-signin-button,
-.gsc-comment-box-is-reply-disabled button {
-  color: #FFFFFF !important;
+/* === PRE-AUTH: Sign in button === */
+.gsc-reply-box-is-reply-disabled button {
+  background-color: transparent !important;
+  border: 1.5px solid var(--color-accent-emphasis) !important;
+  color: var(--color-accent-emphasis) !important;
 }
 
-.gsc-signin-button svg,
-.gsc-comment-box-is-reply-disabled button svg {
-  fill: #FFFFFF !important;
+/* GitHub icon */
+.gsc-reply-box-is-reply-disabled button svg {
+  fill: var(--color-accent-emphasis) !important;
+}
+
+/* Hover: subtle fill, still readable */
+.gsc-reply-box-is-reply-disabled button:hover {
+  background-color: var(--color-accent-subtle) !important;
+  color: var(--color-accent-emphasis) !important;
+}
+
+/* Icon on hover */
+.gsc-reply-box-is-reply-disabled button:hover svg {
+  fill: var(--color-accent-emphasis) !important;
 }
