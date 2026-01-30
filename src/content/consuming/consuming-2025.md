@@ -12,6 +12,7 @@ isTemplate: false
 If you want to know more about what I've rated everything I've watched (usually more movie-wise), follow me on [Letterboxd](https://boxd.it/8BGZ3).
 
 **TV Shows:**
+- Extraordinary Attorney Woo
 - Crash Landing on You
 - Pluribus
 - Initial D
@@ -29,6 +30,9 @@ If you want to know more about what I've rated everything I've watched (usually 
 
 
 **Movies:**
+- Marty Supreme
+- The Preacher's Wife
+- The Best Man Holiday
 - Home Alone
 - The Holiday Club
 - Black Panther
