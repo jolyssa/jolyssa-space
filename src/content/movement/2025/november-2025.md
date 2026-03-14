@@ -15,7 +15,7 @@ isTemplate: false
 yellow = exercised <br>
  green = active
 
-![alt text](20251201_143612.jpg)
+![alt text](./20251201_143612.jpg)
 
 ## Monthly Stats
 

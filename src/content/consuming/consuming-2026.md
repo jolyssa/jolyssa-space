@@ -1,7 +1,7 @@
 ---
 title: "2026: What I'm Consuming, What I've Consumed"
 type: list
-date: 2026-01-04
+date: 2026-01-01
 status: current
 blurb: "An all-in-one comprehensive list of what I'm consuming."
 tags: ["list"]
