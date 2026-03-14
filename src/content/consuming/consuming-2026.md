@@ -11,10 +11,13 @@ isTemplate: false
 
 If you want to know more about what I've rated everything I've watched (usually more movie-wise), follow me on [Letterboxd](https://boxd.it/8BGZ3).
 
+
 **TV Shows:**
 - Heated Rivalry
 - Bridgerton - S1, S2
 - The L Word (the show we watch when were cooking!)
+
+
 **Movies:**
 - Disobedience
 - Demon Slayer: Kimetsu no Yaiba Infinity Castle
@@ -23,11 +26,17 @@ If you want to know more about what I've rated everything I've watched (usually 
 - Five Nights at Freddy's 2
 - Hannah Montana: The Movie
 - Titanic
+  
+
 **Books:**
 - The Age of Reason Sartre
+
+
 **Games:**
 - Overcooked 2
 - Minecraft
+  
+
 **Food:**
 - Butter Chicken
 - Stir-Fry w/ indomie noodles and carbonara buldak noodles
