@@ -1,31 +1,86 @@
 ---
-import Layout from '../layouts/BaseLayout.astro';
+import Layout from "../layouts/BaseLayout.astro";
 ---
 
 <Layout title="Now" description="What I'm doing now.">
   <article class="max-w-2xl mx-auto px-4 py-24">
-    <h1 class="font-serif text-5xl font-bold mb-8 text-text-primary-light dark:text-text-primary">What I'm Doing Now</h1>
-    <p class="font-mono text-text-secondary-light dark:text-text-secondary mb-8">Last updated: March 14, 2026</p>
+    <h1
+      class="font-serif text-5xl font-bold mb-8 text-text-primary-light dark:text-text-primary"
+    >
+      What I'm Doing Now
+    </h1>
+    <p
+      class="font-mono text-text-secondary-light dark:text-text-secondary mb-8"
+    >
+      Last updated: May 9th, 2026
+    </p>
 
-    <h2 class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary">Scrolling</h2>
-<p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">Currently trying to break the habit of mindlessly scrolling, even just picking up my phone. Me updating my blog is apart of this breaking.</p>
+    <h2
+      class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary"
+    >
+      Scrolling
+    </h2>
+    <p
+      class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed"
+    >
+      Currently trying to break the habit of mindlessly scrolling, even just
+      picking up my phone. Me updating my blog is apart of this breaking.
+    </p>
+    <h2
+      class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary"
+    >
+      Figuring out the next steps
+    </h2>
+    <p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed"
+    >
+    It's nearing the time to move on to a new chapter in my life. The time of packing up and moving around every two weeks is nearing an end. The lifestyle is amazing an exciting for about a month, but there's a point after unpacking and getting comfortable that you naturally want to stay awhile and make it comfortable and yours. It takes me about a month to finally feel settled in, and it's always in those moments of peace when it is time to leave. Even though the total allotted time for this way of living will be around seven months by the end, it feels like forever. I am excited to have my own home again where the space is an intentional curation of love, peace, comfortability, and gathering. On a positive note, I really appreciate the amount of people I've met and all of their kindness, the spaces I've called home for a short while, the outstanding corners of the world I've had the privilege of seeing and experiencing, and myself for being open enough to even try.
+    </p>
 
-<h2 class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary">Moving My Body</h2>
-<p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">I find my job is quite active as it is so by the end of the day I do feel as if I need to just rest. I've been sick for essentially two months off and on so I've been taking it easy. I just recently started going back to the gym, and my body feels great! The hardest part is getting back into it and sticking to it. One of my goals this year is making weightlifting a habit. Another fitness goal is to get <em>bouncy</em> again. I don't jump much and I feel as though my body could really use that type of movement.</p>
+    <h2
+      class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary"
+    >
+      Moving My Body
+    </h2>
+    <p
+      class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed"
+    >
+      One month ago I was very active in my job. Moving into my new contract, it is quite the opposite. I'm sitting for the majority of the time while doing Math, Science, English, or French. I'm going to have to find a new way to stay active. For this last month of my contract, the activities most accessible to me are walking, climbing, lifting weights, swimming, and running. I have quite the pick!
+    </p>
 
-<h2 class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary">Reading/Watching/Playing</h2>
-<p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">
-  <span class="font-bold">Reading:</span> The Age of Reason by Jean-Paul Sartre<br>
-  <span class="font-bold">Watching:</span> Bridgerton, The L Word<br>
-  <span class="font-bold">Playing:</span> Minecraft: All day, everyday
-</p>
+    <h2
+      class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary"
+    >
+      Reading/Watching/Playing
+    </h2>
+    <p
+      class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed"
+    >
+      <span class="font-bold">Reading:</span> Half His Age by Jeanette McCurdy<br
+      />
+      <span class="font-bold">Watching:</span> Bridgerton<br />
+      <span class="font-bold">Playing:</span> Truly, nothing at the moment
+    </p>
 
-<h2 class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary">In terms of my life</h2>
-<p class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed">I feel a bit directionless right now. I want to find something that will fulfil me in a spiritual and corporal sense, but I'm struggling to find what that thing is. The fact that I'm investing a lot and have a good cushion for moving (again!) takes a weight off of my shoulders, though.</p>
+    <h2
+      class="font-serif text-2xl font-bold mt-8 text-text-primary-light dark:text-text-primary"
+    >
+      In terms of my life
+    </h2>
+    <p
+      class="font-mono text-text-secondary-light dark:text-text-secondary leading-relaxed"
+    >
+      Give me May to get things in order, it's time!
+    </p>
 
     <hr class="my-12 border-surface" />
     <p>
-      Want to chat? <a href={import.meta.env.PUBLIC_CALENDAR_URL || 'https://cal.com/jolyssa-armstrong-qmqhat/30min'} target="_blank" rel="noreferrer noopener" class="text-accent hover:text-accent-light">Grab 30 minutes →</a>
+      Want to chat? <a
+        href={import.meta.env.PUBLIC_CALENDAR_URL ||
+          "https://cal.com/jolyssa-armstrong-qmqhat/30min"}
+        target="_blank"
+        rel="noreferrer noopener"
+        class="text-accent hover:text-accent-light">Grab 30 minutes →</a
+      >
     </p>
   </article>
 </Layout>
